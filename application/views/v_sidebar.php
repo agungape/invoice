@@ -32,7 +32,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url() . 'form'; ?>" class="nav-link">
+                            <a href="<?php echo base_url() . 'invoice'; ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buat Invoice</p>
                             </a>
