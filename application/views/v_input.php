@@ -41,12 +41,14 @@
                     <div class="col-md-8">
                         <?php
                         $a = $kode['max_code'];
+
                         $c = $in['id_fakultas'];
                         $hari = date('y');
                         $urutan = (int) substr($a, 4, 4);
                         $urutan++;
                         $kd = $c . $hari . sprintf("%04s", $urutan);
                         ?>
+
                         <?= form_open() ?>
                         <table>
                             <tr>
