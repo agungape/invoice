@@ -21,9 +21,9 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="<?= base_url() ?>index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a class="h1"><b>Invoice</b>KU</a>
             </div>
-            <div class="card-body">
+            <div class="card-body text-center">
                 <?php
                 if (isset($_GET['alert'])) {
                     if ($_GET['alert'] == "gagal") {
@@ -56,9 +56,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary float-center" style="margin-right: 5px;">
+                        <i class="fas fa-download"></i> Masuk
+                    </button>
+
+
+                    <!-- <button type="submit" class="btn btn-primary btn-block float-right">Sign In</button> -->
+
                     <!-- /.col -->
             </div>
             </form>
