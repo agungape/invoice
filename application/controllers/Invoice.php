@@ -157,7 +157,7 @@ class Invoice extends CI_Controller
 		$data['inv'] = $this->m_invoice->get_in();
 
 		// title dari pdf
-		// $this->data['title_pdf'] = 'Laporan Invoice BLUD RS Konawe';
+		//	$this->data['title_pdf'] = 'Laporan Invoice BLUD RS Konawe';
 
 		// filename dari pdf ketika didownload
 		$file_pdf = 'laporan_invoice';

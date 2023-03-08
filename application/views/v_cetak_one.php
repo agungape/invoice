@@ -33,39 +33,38 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        .line-title {
+            border: 0;
+            border-style: inset;
+            border-top: 1px solid #000;
+        }
     </style>
 </head>
 
 <body>
-    <div style="text-align:center">
-        <h3> Laporan Invoice</h3>
-    </div>
-    <table id="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nomor Invoice</th>
-                <th>Jenis Invoice</th>
-                <th>Nama Pasien</th>
-                <th>Keterangan</th>
-            </tr>
-        </thead>
-        <tbody>
-        <tbody>
-            <?php
-            $no = 1;
-            foreach ($inv as $u) : ?>
-                <tr class="text-center">
-                    <td><?= $no++ ?></td>
-                    <td><?php echo $u['nomor_invoice']; ?></td>
-                    <td><?php echo $u['jenis_invoice']; ?></td>
-                    <td><?php echo $u['nama']; ?></td>
-                    <td><?php echo $u['keterangan']; ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-        </tbody>
+    <img src="<?= base_url() ?>img/konawe.png" style="position: absolute; width: 70px; height: auto;" align="left">
+    <img src="<?= base_url() ?>img/blud.png" style="position: absolute; width: 80px; height: auto;" align="right">
+    <table style="width: 100%;">
+        <tr>
+            <td align="center">
+                <span style="line-height: 1.2; font-weight: bold; font-size:medium;">
+                    PEMERINTAH KABUPATEN KONAWE<br>
+                    BADAN LAYANAN UMUM DAERAH (BLUD)<br>
+                    RUMAH SAKIT KONAWE
+                </span><br />
+                <span style="font-size: small;">
+                    Jln. Diponegoro No.301 Telp. 0408-2421014 Fax. 0408-2422349
+                </span>
+            </td>
+        </tr>
     </table>
+    <hr class="line-title">
+    <?php
+    $a = $in['nomor_invoice'];
+    echo '<p>Unit ' . $a . '</p>'
+    ?>
+
 </body>
 
 </html>
