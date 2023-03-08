@@ -38,14 +38,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url() . 'invoice/list'; ?>" class="nav-link">
+                            <a href="<?php echo base_url() . 'invoice/invoice_list'; ?>" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>List Invoice</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url() . 'invoice/jenis'; ?>" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                            <a href="<?php echo base_url() . 'invoice/invoice_jenis'; ?>" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
                                 <p>Jenis Invoice</p>
                             </a>
                         </li>

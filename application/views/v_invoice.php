@@ -78,7 +78,9 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url() . 'invoice/invoice_hapus/' . $u['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <form method="post" action="<?php echo base_url() . 'invoice/pdf'; ?>">
+                                                        <button type="submit" name="id" class="btn btn-sm btn-primary"><i class='fa fa-print'></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

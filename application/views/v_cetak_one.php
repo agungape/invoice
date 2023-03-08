@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Invoice</title>
+    <title>Laporan Invoice BLUD RS Konawe</title>
     <style>
         #table {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -48,7 +48,6 @@
                 <th>Jenis Invoice</th>
                 <th>Nama Pasien</th>
                 <th>Keterangan</th>
-                <th>Created_at</th>
             </tr>
         </thead>
         <tbody>
@@ -62,7 +61,6 @@
                     <td><?php echo $u['jenis_invoice']; ?></td>
                     <td><?php echo $u['nama']; ?></td>
                     <td><?php echo $u['keterangan']; ?></td>
-                    <td><?php echo $u['created_at']; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

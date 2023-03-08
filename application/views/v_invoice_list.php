@@ -34,8 +34,8 @@
                                             <th>Nomor Invoice</th>
                                             <th>Nama Pasien</th>
                                             <th>Keterangan</th>
-                                            <th>Created At</th>
-                                            <th>Aksi</th>
+                                            <th width="100">Created At</th>
+                                            <th width="100">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,7 +50,9 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url() . 'invoice/hapus/' . $u['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/pdf'; ?>" class="btn btn-sm btn-primary"><i class='fa fa-print'></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/invoice_edit/' . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/invoice_hapus/' . $u['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

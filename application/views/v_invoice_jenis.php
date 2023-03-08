@@ -26,7 +26,7 @@
                     <div class="invoice p-3 mb-3">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <a href="<?php echo base_url() . 'invoice/tambah_jenis' ?>" class='btn btn-sm btn-success pull-right'><i class="fa fa-plus"></i> Tambah Baru</a><br><br>
+                                <a href="<?php echo base_url() . 'invoice/invoice_jenis_tambah' ?>" class='btn btn-sm btn-success pull-right'><i class="fa fa-plus"></i> Tambah Baru</a><br><br>
                                 <table class="table table-striped table-hover" id="table-datatable">
                                     <thead>
                                         <tr class="align-items-center">
@@ -45,7 +45,7 @@
                                                 <td><?php echo $u['kode_invoice']; ?></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url() . 'invoice/hapus_jenis/' . $u['kode_invoice']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/invoice_jenis_hapus/' . $u['kode_invoice']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
