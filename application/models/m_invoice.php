@@ -9,8 +9,8 @@ class M_invoice extends CI_Model
 
     public function get_inv()
     {
-        $tanggal = date('Y-m-d');
-        $this->db->like('created_at', $tanggal);
+        // $tanggal = date('Y-m-d');
+        // $this->db->like('created_at', $tanggal);
         $this->db->order_by('created_at', 'DESC');
         $query = $this->db->get('invoice');
         return $query->result_array();

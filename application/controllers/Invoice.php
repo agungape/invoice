@@ -12,7 +12,7 @@ class Invoice extends CI_Controller
 		parent::__construct();
 		$this->load->helper(array('url', 'form'));
 		$this->load->model('m_invoice');
-		$this->load->library('form_validation');
+		$this->load->library('form_validation', 'session');
 		// cek session yang login, jika session status tidak sama dengan session admin_login,maka halaman akan di alihkan kembali ke halaman login.
 		if ($this->session->userdata('status') != "admin_login") {
 			redirect(base_url() . 'login?alert=belum_login');
@@ -58,6 +58,7 @@ class Invoice extends CI_Controller
 			'keterangan' => $keterangan
 		];
 		$this->m_invoice->insert_data($data, 'invoice');
+		$this->session->set_flashdata('sukses', 'Berhasil Membuat Invoice');
 		redirect('invoice');
 	}
 
@@ -95,7 +96,7 @@ class Invoice extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$this->m_invoice->delete_data($where, 'invoice');
-		redirect('invoice');
+		redirect('invoice/invoice_list');
 	}
 
 	function invoice_list()
@@ -136,16 +137,19 @@ class Invoice extends CI_Controller
 				'jenis_invoice' => $jenis
 			];
 			$this->m_invoice->insert_data($data, 'jns_invoice');
+			$this->session->set_flashdata('sukses', 'Data Berhasil Ditambahkan');
 			redirect('invoice/invoice_jenis');
 		} else {
+			$this->session->set_flashdata('gagal', 'Gagal Menambahkan Data');
 			redirect('invoice/invoice_jenis_tambah');
 		}
 	}
 
 	function invoice_jenis_hapus($kode_invoice)
 	{
-		$where = array('kode_invoice' => $kode_invoice);
-		$this->m_invoice->delete_data($where, 'jns_invoice');
+		//$where = array('kode_invoice' => $kode_invoice);
+		$kode_invoice = $this->input->post("kode_invoice");
+		$this->m_invoice->delete_data($kode_invoice, 'jns_invoice');
 		redirect('invoice/invoice_jenis');
 	}
 
@@ -162,16 +166,36 @@ class Invoice extends CI_Controller
 		// filename dari pdf ketika didownload
 		$file_pdf = 'laporan_invoice';
 		// setting paper
-		$paper = 'A4';
+		$customPaper = 'A6';
+		// $paper->set_paper($customPaper);
+		// $paper = 'A4';
 		//orientasi paper potrait / landscape
-		$orientation = "portrait";
+		$orientation = "landscape";
 
-		if (isset($_POST['id'])) {
-			$html = $this->load->view('v_cetak_one', $data, true);
-		} else {
-			$html = $this->load->view('v_cetak', $data, true);
-		}
+		// if (isset($_POST['id'])) {
+		// 	$where = array('id' => $id);
+		// 	$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
+		// 	$html = $this->load->view('v_cetak_one', $data, true);
+		// } else {
+		// 	$html = $this->load->view('v_cetak', $data, true);
+		// }
+
+		$html = $this->load->view('v_cetak', $data, true);
 		// run dompdf
-		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		$this->pdfgenerator->generate($html, $file_pdf, $customPaper, $orientation);
+	}
+
+	function cetak_invoice($id)
+	{
+		$this->load->library('pdfgenerator');
+		$file_pdf = 'laporan_invoice';
+		$customPaper = 'A7';
+		$orientation = 'landscape';
+
+		$where = array('id' => $id);
+		// mengambil data dari database sesuai id
+		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
+		$cetak = $this->load->view('v_cetak1', $data, true);
+		$this->pdfgenerator->generate($cetak, $file_pdf, $customPaper, $orientation);
 	}
 }

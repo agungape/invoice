@@ -45,7 +45,7 @@
                                                 <td><?php echo $u['kode_invoice']; ?></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url() . 'invoice/invoice_jenis_hapus/' . $u['kode_invoice']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <a onclick="deletedata(<?php echo $u['kode_invoice'] ?>)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

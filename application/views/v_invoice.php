@@ -63,7 +63,7 @@
                                             <th>Nama Pasien</th>
                                             <th>Keterangan</th>
                                             <th>Dibuat</th>
-                                            <th>Aksi</th>
+                                            <th width="60">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,9 +78,7 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <form method="post" action="<?php echo base_url() . 'invoice/pdf'; ?>">
-                                                        <button type="submit" name="id" class="btn btn-sm btn-primary"><i class='fa fa-print'></i></button>
-                                                    </form>
+                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-address-card"></i> Cetak</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

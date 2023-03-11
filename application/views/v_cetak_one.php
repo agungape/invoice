@@ -60,11 +60,15 @@
         </tr>
     </table>
     <hr class="line-title">
-    <?php
-    $a = $in['nomor_invoice'];
-    echo '<p>Unit ' . $a . '</p>'
-    ?>
 
+    <?php foreach ($invoice as $u) { ?>
+        <div align="center">
+            <span style="line-height: 1.2; font-weight: bold; font-size:medium; ">
+                UNIT <?php echo $u->jenis_invoice ?><br>
+            </span>
+            <span> <?php echo $u->nomor_invoice ?></span>
+        </div><br />
+    <?php } ?>
 </body>
 
 </html>

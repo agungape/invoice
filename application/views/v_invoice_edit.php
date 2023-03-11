@@ -56,7 +56,7 @@
                                     <button type="submit" class="btn btn-sm btn-primary float-right" style="margin-right: 5px;">
                                         <i class="fas fa-download"></i> Update Invoice
                                     </button>
-                                    <a href="<?= base_url() . 'invoice' ?>" class='btn btn-sm btn-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
+                                    <a href="<?= base_url() . 'invoice/invoice_list' ?>" class='btn btn-sm btn-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
                                 </div>
                             </div>
                             <? form_close() ?>

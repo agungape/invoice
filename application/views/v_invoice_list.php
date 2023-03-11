@@ -50,9 +50,9 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url() . 'invoice/pdf'; ?>" class="btn btn-sm btn-primary"><i class='fa fa-print'></i></a>
+                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-address-card"></i></a>
                                                     <a href="<?php echo base_url() . 'invoice/invoice_edit/' . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i></a>
-                                                    <a href="<?php echo base_url() . 'invoice/invoice_hapus/' . $u['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <a onclick="deletedata(<?php echo $u['id']; ?>)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
