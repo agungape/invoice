@@ -1,4 +1,9 @@
+<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
+<?php if ($this->session->flashdata('flash')) : ?>
+<?php endif; ?>
+
 <div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -46,8 +51,8 @@
                             </div>
                             <div class="col-sm-4 invoice-col">
                                 <div class="form-group">
-                                    <label class="text-white">Buat Invoice</label><br>
-                                    <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Generate</button>
+                                    <label class="text-white">.</label><br>
+                                    <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modaltambah"><i class="fas fa-sync-alt"></i> Buat Invoice</button>
                                     <?= form_close(); ?>
                                 </div>
                             </div>
@@ -78,7 +83,7 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-address-card"></i> Cetak</a>
+                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i> Cetak</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

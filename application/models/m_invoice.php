@@ -6,7 +6,6 @@ class M_invoice extends CI_Model
         $this->load->database();
     }
 
-
     public function get_inv()
     {
         // $tanggal = date('Y-m-d');

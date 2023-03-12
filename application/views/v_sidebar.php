@@ -40,7 +40,7 @@
                         <li class="nav-item">
                             <a href="<?php echo base_url() . 'invoice/invoice_list'; ?>" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
-                                <p>List Invoice</p>
+                                <p>Daftar Invoice</p>
                             </a>
                         </li>
                         <li class="nav-item">

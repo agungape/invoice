@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Cetak Kartu Anggota</title>
+    <title>Cetak Invoice</title>
     <style style="text/css">
         .card {
             border: 1px solid #000;
@@ -45,7 +45,7 @@
             <?php foreach ($invoice as $u) { ?>
                 <div align="center">
                     <span style="line-height: 1.2; font-weight: bold; font-size:8px; ">
-                        UNIT <?php echo $u->jenis_invoice ?><br>
+                        <?php echo $u->jenis_invoice ?><br>
                     </span>
                     <span style="font-size:8px;"> <?php echo $u->nomor_invoice ?></span>
                 </div><br />

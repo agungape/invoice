@@ -22,62 +22,94 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
-
+<script src="<?= base_url() ?>dist/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
 <script>
-    <?php if ($this->session->flashdata('sukses')) { ?>
-        $isi = <?php echo json_encode($this->session->flashdata('sukses')) ?>;
-        Swal.fire({
-            title: 'Berhasil',
-            text: $isi,
-            icon: 'success'
-        })
-    <?php } ?>
-    <?php if ($this->session->flashdata('gagal')) { ?>
-        $isi = <?php echo json_encode($this->session->flashdata('gagal')) ?>;
-        Swal.fire({
-            title: 'Gagal',
-            text: $isi,
-            icon: 'error'
-        })
-    <?php } ?>
+    //sweet alert
+    const flashData = $('.flash-data').data('flashdata');
 
-    function deletedata($kode_invoice) {
+    if (flashData) {
         Swal.fire({
-                title: 'Apakah yakin menghapus?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            },
-
-            function() {
-                $.ajax({
-                    url: "<?php echo base_url('invoice/invoice_jenis_hapus/') ?>",
-                    type: "post",
-                    data: {
-                        kode_invoice: kode_invoice
-                    },
-                    success: function() {
-                        Swal.fire(
-                            'Data Berhasil di Hapus',
-                            'success'
-                        );
-                        $("#delete").fadeTo("slow", 0.7, function() {
-                            $(this).remove();
-                        });
-                    },
-                    error: function() {
-                        Swal.fire(
-                            'Data Gagal di Hapus',
-                            'error'
-                        );
-                    },
-                });
-            });
+            icon: 'success',
+            title: 'Sukses',
+            text: 'Berhasil ' + flashData,
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
+
+    //hapus data
+    $('.tombol-hapus').on('click', function(e) {
+
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+            title: 'Apakah anda yakin',
+            text: "data akan dihapus!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e74c3c',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.value) {
+                document.location.href = href;
+            }
+        })
+
+    });
 </script>
+
+<!-- <script>
+    const baseUrl = "<php echo base_url(); ?>"
+    const myChart = (chartType) => {
+        $.ajax({
+            url: baseUrl + 'invoice/chart_data',
+            dataType: 'json',
+            method: 'get',
+            success: data => {
+                let chartX = []
+                let chartY = []
+                data.map(data => {
+                    chartX.push(data.month)
+                    chartY.push(data.sales)
+                })
+                const chartData = {
+                    labels: chartX,
+                    datasets: [{
+                        label: 'Sales',
+                        data: chartY,
+                        backgroundColor: ['lightcoral'],
+                        borderColor: ['lightcoral'],
+                        borderWidth: 4
+                    }]
+                }
+                const ctx = document.getElementById(chartType).getContext('2d')
+                const config = {
+                    type: chartType,
+                    data: chartData
+                }
+                switch (chartType) {
+                    case 'bar':
+                        chartData.datasets[0].backgroundColor = ['skyblue']
+                        chartData.datasets[0].borderColor = ['skyblue']
+                        break;
+                    default:
+                        config.options = {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                }
+                const chart = new Chart(ctx, config)
+            }
+        })
+    }
+    myChart('bar')
+</script> -->
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table-datatable').DataTable();

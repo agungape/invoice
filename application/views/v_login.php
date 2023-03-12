@@ -27,7 +27,7 @@
                 <?php
                 if (isset($_GET['alert'])) {
                     if ($_GET['alert'] == "gagal") {
-                        echo "<div class='alert alert-danger font-weight-bold textcenter'>Username Atau Password Salah!</div>";
+                        echo "<div class='alert swalDefaultError font-weight-bold textcenter'>Username Atau Password Salah!</div>";
                     } else if ($_GET['alert'] == "belum_login") {
                         echo "<div class='alert alert-danger font-weight-bold textcenter'>SILAHKAN LOGIN TERLEBIH DULU!</div>";
                     } else if ($_GET['alert'] == "logout") {
@@ -79,6 +79,7 @@
     <script src="<?= base_url() ?>dist/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url() ?>dist/js/adminlte.min.js"></script>
+    <script src="<?= base_url() ?>dist/sweetalert2/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

@@ -1,15 +1,18 @@
+<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
+<?php if ($this->session->flashdata('flash')) : ?>
+<?php endif; ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List Invoice</h1>
+                    <h1>Daftar Invoice</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Invoice</li>
+                        <li class="breadcrumb-item active">Daftar Invoice</li>
                     </ol>
                 </div>
             </div>
@@ -50,9 +53,9 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-address-card"></i></a>
-                                                    <a href="<?php echo base_url() . 'invoice/invoice_edit/' . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i></a>
-                                                    <a onclick="deletedata(<?php echo $u['id']; ?>)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" title="cetak invoice" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/invoice_edit/' . $u['id']; ?>" title="edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
+                                                    <a href="<?php echo base_url() . 'invoice/invoice_hapus/' . $u['id']; ?>" title="hapus" class="btn btn-sm btn-outline-danger tombol-hapus"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

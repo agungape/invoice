@@ -38,7 +38,6 @@
                                 <div class="form-group row">
                                     <label for="kode" class="col-sm-2 col-form-label">Kode Invoice</label>
                                     <div class="col-sm-3">
-                                        <?php echo form_error('kode'); ?>
                                         <input type="text" class="form-control" name="kode" placeholder="Masukkan Kode Invoice Baru">
                                     </div>
                                 </div>
@@ -50,8 +49,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <a href="<?php echo base_url() . 'invoice/invoice_jenis' ?>" class='btn btn-sm btn-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
-                                <button type="submit" class='btn btn-sm btn-success pull-right'><i class="fa fa-plus"></i>Tambahkan</button>
+                                <a href="<?php echo base_url() . 'invoice/invoice_jenis' ?>" class='btn btn-sm btn-outline-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
+                                <button type="submit" class='btn btn-sm btn-outline-success pull-right'><i class="fa fa-plus"></i>Tambahkan</button>
                             </div>
                             <?= form_close(); ?>
                         </div>

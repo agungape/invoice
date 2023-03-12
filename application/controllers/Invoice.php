@@ -58,7 +58,7 @@ class Invoice extends CI_Controller
 			'keterangan' => $keterangan
 		];
 		$this->m_invoice->insert_data($data, 'invoice');
-		$this->session->set_flashdata('sukses', 'Berhasil Membuat Invoice');
+		$this->session->set_flashdata('flash', 'Membuat Invoice');
 		redirect('invoice');
 	}
 
@@ -89,6 +89,7 @@ class Invoice extends CI_Controller
 			'id' => $id
 		);
 		$this->m_invoice->update_data($where, $data, 'invoice');
+		$this->session->set_flashdata('flash', 'Update Invoice');
 		redirect('invoice/invoice_list');
 	}
 
@@ -96,6 +97,7 @@ class Invoice extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$this->m_invoice->delete_data($where, 'invoice');
+		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('invoice/invoice_list');
 	}
 
@@ -137,19 +139,22 @@ class Invoice extends CI_Controller
 				'jenis_invoice' => $jenis
 			];
 			$this->m_invoice->insert_data($data, 'jns_invoice');
-			$this->session->set_flashdata('sukses', 'Data Berhasil Ditambahkan');
+			$this->session->set_flashdata('flash', 'Menambahkan Data');
 			redirect('invoice/invoice_jenis');
 		} else {
-			$this->session->set_flashdata('gagal', 'Gagal Menambahkan Data');
+			$this->session->set_flashdata('flash', 'Menambahkan Data');
 			redirect('invoice/invoice_jenis_tambah');
 		}
 	}
 
-	function invoice_jenis_hapus($kode_invoice)
+	function invoice_jenis_hapus($id)
 	{
-		//$where = array('kode_invoice' => $kode_invoice);
-		$kode_invoice = $this->input->post("kode_invoice");
-		$this->m_invoice->delete_data($kode_invoice, 'jns_invoice');
+		$id = [
+			'kode_invoice' => $id
+		];
+
+		$this->m_invoice->delete_data($id, 'jns_invoice');
+		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('invoice/invoice_jenis');
 	}
 
@@ -197,5 +202,11 @@ class Invoice extends CI_Controller
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
 		$cetak = $this->load->view('v_cetak1', $data, true);
 		$this->pdfgenerator->generate($cetak, $file_pdf, $customPaper, $orientation);
+	}
+
+	public function chart_data()
+	{
+		$data = $this->m_invoice->get_in();
+		echo json_encode($data);
 	}
 }
