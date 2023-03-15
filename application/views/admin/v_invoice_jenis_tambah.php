@@ -34,7 +34,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-body">
-                                <?= form_open('invoice/invoice_jenis_tambah_aksi'); ?>
+                                <?= form_open('admin/invoice_jenis_tambah_aksi'); ?>
                                 <div class="form-group row">
                                     <label for="kode" class="col-sm-2 col-form-label">Kode Invoice</label>
                                     <div class="col-sm-3">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <a href="<?php echo base_url() . 'invoice/invoice_jenis' ?>" class='btn btn-sm btn-outline-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
+                                <a href="<?php echo base_url() . 'admin/invoice_jenis' ?>" class='btn btn-sm btn-outline-warning pull-right'><i class="fa fa-backward"></i> Kembali</a>
                                 <button type="submit" class='btn btn-sm btn-outline-success pull-right'><i class="fa fa-plus"></i>Tambahkan</button>
                             </div>
                             <?= form_close(); ?>

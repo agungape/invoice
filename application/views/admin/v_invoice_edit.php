@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url() . 'invoice/invoice_list' ?>">Daftar Invoice</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url() . 'admin/invoice_list' ?>">Daftar Invoice</a></li>
                         <li class="breadcrumb-item active">Edit Invoice</li>
                     </ol>
                 </div>
@@ -53,7 +53,7 @@
                         </div>
                         <input type="text" class="form-control" name="id" value="<?php echo $u->id ?>" readonly hidden>
                         <div class="form-group">
-                            <a href="<?= base_url() . 'invoice/invoice_list' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
+                            <a href="<?= base_url() . 'admin/invoice_list' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
                             <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-right: 5px;">
                                 <i class="fas fa-download"></i> Update Invoice
                             </button>

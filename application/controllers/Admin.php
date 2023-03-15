@@ -1,18 +1,13 @@
 <?php
 
-use Dompdf\Helpers;
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Invoice extends CI_Controller
+class Admin extends CI_Controller
 {
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper(array('url', 'form'));
-		$this->load->model('m_invoice');
-		$this->load->library('form_validation', 'session');
 		// cek session yang login, jika session status tidak sama dengan session admin_login,maka halaman akan di alihkan kembali ke halaman login.
 		if ($this->session->userdata('status') != "admin_login") {
 			redirect(base_url() . 'login?alert=belum_login');
@@ -21,12 +16,32 @@ class Invoice extends CI_Controller
 
 	function index()
 	{
+		$data['invoice'] = $this->db->query("SELECT MONTHNAME(created_at) AS bulan, COUNT(*) AS jumlah_invoice FROM invoice GROUP BY MONTH(created_at)")->result_array();
+		$data['jns_kkt'] = $this->m_invoice->get_invkd('KKT');
+		$data['jns_rjl'] = $this->m_invoice->get_invkd('RJL');
+		$data['jns_rdl'] = $this->m_invoice->get_invkd('RDL');
+		$data['jns_utd'] = $this->m_invoice->get_invkd('UTD');
+		$data['jns_lab'] = $this->m_invoice->get_invkd('LAB');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_content', $data);
+		$this->load->view('admin/v_footer');
+	}
+
+	function logout()
+	{
+		$this->session->sess_destroy();
+		redirect(base_url() . 'login/?alert=logout');
+	}
+
+	function invoice()
+	{
 		$data['invoice'] = $this->m_invoice->get_inv();
 		$data['jenis'] = $this->m_invoice->get_jns();
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_invoice', $data);
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_invoice', $data);
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_tambah()
@@ -37,10 +52,10 @@ class Invoice extends CI_Controller
 			'kode' => $this->m_invoice->auto_code($a),
 			'in' => $this->m_invoice->get_inisial($a)
 		];
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_input', $data);
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_input', $data);
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_tambah_aksi()
@@ -66,10 +81,10 @@ class Invoice extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_invoice_edit', $data);
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_invoice_edit', $data);
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_update()
@@ -104,27 +119,27 @@ class Invoice extends CI_Controller
 	function invoice_list()
 	{
 		$data['invoice'] = $this->m_invoice->get_in();
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_invoice_list', $data);
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_invoice_list', $data);
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_jenis()
 	{
 		$data['jenis'] = $this->m_invoice->get_jns();
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_invoice_jenis', $data);
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_invoice_jenis', $data);
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_jenis_tambah()
 	{
-		$this->load->view('v_header');
-		$this->load->view('v_sidebar');
-		$this->load->view('v_invoice_jenis_tambah');
-		$this->load->view('v_footer');
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_invoice_jenis_tambah');
+		$this->load->view('admin/v_footer');
 	}
 
 	function invoice_jenis_tambah_aksi()
@@ -140,10 +155,10 @@ class Invoice extends CI_Controller
 			];
 			$this->m_invoice->insert_data($data, 'jns_invoice');
 			$this->session->set_flashdata('flash', 'Menambahkan Data');
-			redirect('invoice/invoice_jenis');
+			redirect('admin/invoice_jenis');
 		} else {
 			$this->session->set_flashdata('flash', 'Menambahkan Data');
-			redirect('invoice/invoice_jenis_tambah');
+			redirect('admin/invoice_jenis_tambah');
 		}
 	}
 
@@ -155,58 +170,19 @@ class Invoice extends CI_Controller
 
 		$this->m_invoice->delete_data($id, 'jns_invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
-		redirect('invoice/invoice_jenis');
+		redirect('admin/invoice_jenis');
 	}
 
-	public function pdf()
+	public function print()
 	{
-		// panggil library yang kita buat sebelumnya yang bernama pdfgenerator
-		$this->load->library('pdfgenerator');
-
-		$data['inv'] = $this->m_invoice->get_in();
-
-		// title dari pdf
-		//	$this->data['title_pdf'] = 'Laporan Invoice BLUD RS Konawe';
-
-		// filename dari pdf ketika didownload
-		$file_pdf = 'laporan_invoice';
-		// setting paper
-		$customPaper = 'A6';
-		// $paper->set_paper($customPaper);
-		// $paper = 'A4';
-		//orientasi paper potrait / landscape
-		$orientation = "landscape";
-
-		// if (isset($_POST['id'])) {
-		// 	$where = array('id' => $id);
-		// 	$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
-		// 	$html = $this->load->view('v_cetak_one', $data, true);
-		// } else {
-		// 	$html = $this->load->view('v_cetak', $data, true);
-		// }
-
-		$html = $this->load->view('v_cetak', $data, true);
-		// run dompdf
-		$this->pdfgenerator->generate($html, $file_pdf, $customPaper, $orientation);
+		$data['invoice'] = $this->m_invoice->get_in();
+		$this->load->view('admin/v_cetak', $data);
 	}
 
 	function cetak_invoice($id)
 	{
-		$this->load->library('pdfgenerator');
-		$file_pdf = 'laporan_invoice';
-		$customPaper = 'A7';
-		$orientation = 'landscape';
-
 		$where = array('id' => $id);
-		// mengambil data dari database sesuai id
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
-		$cetak = $this->load->view('v_cetak1', $data, true);
-		$this->pdfgenerator->generate($cetak, $file_pdf, $customPaper, $orientation);
-	}
-
-	public function chart_data()
-	{
-		$data = $this->m_invoice->get_in();
-		echo json_encode($data);
+		$this->load->view('admin/v_cetak1', $data,);
 	}
 }

@@ -37,9 +37,27 @@
 </head>
 
 <body>
-    <div style="text-align:center">
-        <h3> Laporan Invoice</h3>
+    <img src="<?= base_url() ?>img/konawe.png" style="position: absolute; width: 100px; height: auto;">
+    <p style="text-align: right; width: 85%;"><img src="<?= base_url() ?>img/blud.png" style="position: absolute; width: 100px; height: auto;"></p>
+    <div class="card-header">
+        <table style="width: 100%;">
+            <tr>
+                <td align="center">
+                    <span style="line-height: 1.4; font-weight: bold; font-size:20px;">
+                        PEMERINTAH KABUPATEN KONAWE<br />
+                        BADAN LAYANAN UMUM DAERAH (BLUD)<br />
+                        RUMAH SAKIT KONAWE
+                    </span><br />
+                    <span style="font-size: 14px;">
+                        Jln. Diponegoro No.301 Telp. 0408-2421014 Fax. 0408-2422349
+                    </span>
+                </td>
+            </tr>
+        </table>
     </div>
+    <!-- <div style="text-align:center">
+        <h3> Laporan Invoice</h3>
+    </div> -->
     <table id="table">
         <thead>
             <tr>
@@ -55,7 +73,7 @@
         <tbody>
             <?php
             $no = 1;
-            foreach ($inv as $u) : ?>
+            foreach ($invoice as $u) : ?>
                 <tr class="text-center">
                     <td><?= $no++ ?></td>
                     <td><?php echo $u['nomor_invoice']; ?></td>
@@ -68,6 +86,11 @@
         </tbody>
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        window.print();
+    </script>
 </body>
+
 
 </html>

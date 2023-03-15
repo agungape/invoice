@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>InvoiceBLUD</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,15 +28,20 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
+                <li class="nav-item">
+                    <h5 class="nav-link">
+                        <strong>BLUD Rumah Sakit Konawe - <?= date('Y') ?></strong>
+                    </h5>
+                </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
+                <span class="navbar-text mr-3 text-center">
+                    Halo, <?php echo $this->session->userdata('username'); ?>
+                </span>
+
+                <a href="<?= base_url() . 'petugas/logout'; ?>" class="btn btn-outline-dark ml-1"><i class="fa fa-power-off"></i> Keluar</a>
+
             </ul>
         </nav>

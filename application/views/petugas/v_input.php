@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url() . 'invoice' ?>">Invoice</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url() . 'petugas/invoice' ?>">Invoice</a></li>
                         <li class="breadcrumb-item active">Buat Invoice</li>
                     </ol>
                 </div>
@@ -45,7 +45,7 @@
                     $kd = $b . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
                     // echo '<h5 class="text-center">' . $c . '</h5><h1 class="text-center">' . $kd . '</h1>'
                     ?>
-                    <?= form_open('invoice/invoice_tambah_aksi') ?>
+                    <?= form_open('petugas/invoice_tambah_aksi') ?>
                     <div class="form-group">
                         <label for="inputName">Nomor Invoice</label>
                         <input type="text" class="form-control" name="invoice" value="<?= $kd; ?>" readonly>
@@ -64,7 +64,7 @@
                     </div>
                     <input type="text" class="form-control" name="kode" value="<?= $b; ?>" readonly hidden>
                     <div class="form-group">
-                        <a href="<?= base_url() . 'invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
+                        <a href="<?= base_url() . 'petugas/invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
                         <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-right: 5px;">
                             <i class="fas fa-download"></i> Simpan Invoice
                         </button>

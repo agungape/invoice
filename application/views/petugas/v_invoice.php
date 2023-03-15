@@ -24,9 +24,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="callout callout-info">
+                    <div class="callout callout-success">
                         <h5><i class="fas fa-info"></i> Note:</h5>
-                        This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
+                        Halaman ini untuk membuat <b>Invoice</b>. Klik tombol <b>Buat Invoice</b> di bagian tengah faktur untuk membuat.
                     </div>
                     <div class="invoice p-3 mb-3">
                         <div class="row">
@@ -40,7 +40,7 @@
                         <div class="row invoice-info">
                             <div class="col-sm-4 invoice-col">
                                 <div class="form-group">
-                                    <?= form_open('invoice/invoice_tambah'); ?>
+                                    <?= form_open('petugas/invoice_tambah'); ?>
                                     <label>Jenis Invoice</label>
                                     <select name="id" class="form-control select2" style="width: 100%;" required>
                                         <?php foreach ($jenis as $data) : ?>
@@ -67,7 +67,7 @@
                                             <th>Nomor Invoice</th>
                                             <th>Nama Pasien</th>
                                             <th>Keterangan</th>
-                                            <th>Dibuat</th>
+                                            <th>Di Buat</th>
                                             <th width="60">Aksi</th>
                                         </tr>
                                     </thead>
@@ -83,7 +83,7 @@
                                                 <td><?php echo $u['keterangan']; ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td>
-                                                    <a target="_blank" href="<?php echo base_url() . 'invoice/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i> Cetak</a>
+                                                    <a target="_blank" href="<?php echo base_url() . 'petugas/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i> Cetak</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

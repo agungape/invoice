@@ -8,8 +8,8 @@ class M_invoice extends CI_Model
 
     public function get_inv()
     {
-        // $tanggal = date('Y-m-d');
-        // $this->db->like('created_at', $tanggal);
+        $tanggal = date('Y-m-d');
+        $this->db->like('created_at', $tanggal);
         $this->db->order_by('created_at', 'DESC');
         $query = $this->db->get('invoice');
         return $query->result_array();
@@ -60,5 +60,17 @@ class M_invoice extends CI_Model
     {
         $this->db->where($where);
         $this->db->delete($table);
+    }
+
+    function get_invkd($kode_invoice)
+    {
+        $this->db->where('kode_invoice', $kode_invoice);
+        $this->db->from('invoice');
+        return $this->db->get()->num_rows();
+    }
+
+    function get_data($table)
+    {
+        return $this->db->get($table);
     }
 }
