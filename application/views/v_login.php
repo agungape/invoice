@@ -75,7 +75,7 @@
                             <label for="sebagai">Login Sebagai :</label>
                             <select name="sebagai" class="form-control">
                                 <option value="admin">Admin</option>
-                                <option value="petugas">Petugas</option>
+                                <option value="user">User</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary float-center" style="margin-right: 5px;">

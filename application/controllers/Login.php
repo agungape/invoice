@@ -3,10 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
+
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_login');
 	}
 
 	public function index()
@@ -28,9 +28,10 @@ class Login extends CI_Controller
 				'username' => $username,
 				'password' => md5($password)
 			);
+
 			if ($sebagai == "admin") {
-				$cek = $this->m_login->cek_login('admin', $where)->num_rows();
-				$data = $this->m_login->cek_login('admin', $where)->row();
+				$cek = $this->m_invoice->cek_login('admin', $where)->num_rows();
+				$data = $this->m_invoice->cek_login('admin', $where)->row();
 
 				if ($cek > 0) {
 					$data_session = array(
@@ -45,21 +46,21 @@ class Login extends CI_Controller
 				} else {
 					redirect(base_url() . 'login?alert=gagal');
 				}
-			} else if ($sebagai == "petugas") {
-				$cek = $this->m_login->cek_login('petugas', $where)->num_rows();
-				$data = $this->m_login->cek_login('petugas', $where)->row();
+			} else if ($sebagai == "user") {
+				$cek = $this->m_invoice->cek_login('petugas', $where)->num_rows();
+				$data = $this->m_invoice->cek_login('petugas', $where)->row();
 
 				if ($cek > 0) {
 					$data_session = array(
 						'id' => $data->id,
 						'nama' => $data->nama,
 						'username' => $data->username,
-						'status' => 'petugas_login'
+						'status' => 'user_login'
 					);
 
 					$this->session->set_userdata($data_session);
 
-					redirect(base_url() . 'petugas');
+					redirect(base_url() . 'user');
 				} else {
 					redirect(base_url() . 'login?alert=gagal');
 				}

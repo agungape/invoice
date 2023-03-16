@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <div align="center">
-        <a href="<?= base_url() . 'welcome'; ?>" class="brand-link">
+        <a href="<?= base_url() . 'admin'; ?>" class="brand-link">
             <img src="<?= base_url() ?>dist/img/invoice.png" alt="Invoice" style="width:30%">
             <h3 class="brand-text"><b>INVOICE</b></h3>
         </a>
@@ -40,6 +40,12 @@
                             <a href="<?php echo base_url() . 'admin/invoice_jenis'; ?>" class="nav-link">
                                 <i class="nav-icon fas fa-newspaper"></i>
                                 <p>Jenis Invoice</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url() . 'admin/user'; ?>" class="nav-link">
+                                <i class="nav-icon fas fa-user-alt"></i>
+                                <p>User</p>
                             </a>
                         </li>
                     </ul>

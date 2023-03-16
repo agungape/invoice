@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-7">
                     <?php foreach ($invoice as $u) { ?>
-                        <?= form_open('invoice/invoice_update') ?>
+                        <?= form_open('admin/invoice_update') ?>
                         <div class="form-group">
                             <label for="invoice">Nomor Invoice</label>
                             <input type="text" class="form-control" name="invoice" value="<?php echo $u->nomor_invoice ?>" readonly>

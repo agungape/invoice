@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html moznomarginboxes mozdisallowselectionprint>
+<html lang="en">
 
 <head>
     <title>Cetak Invoice</title>

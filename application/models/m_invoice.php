@@ -21,6 +21,11 @@ class M_invoice extends CI_Model
         $query = $this->db->get('invoice');
         return $query->result_array();
     }
+    public function get_user()
+    {
+        $query = $this->db->get('petugas');
+        return $query->result_array();
+    }
 
     public function get_jns()
     {
@@ -72,5 +77,10 @@ class M_invoice extends CI_Model
     function get_data($table)
     {
         return $this->db->get($table);
+    }
+
+    function cek_login($table, $where)
+    {
+        return $this->db->get_where($table, $where);
     }
 }

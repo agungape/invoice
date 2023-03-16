@@ -9,7 +9,7 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		// cek session yang login, jika session status tidak sama dengan session admin_login,maka halaman akan di alihkan kembali ke halaman login.
-		if ($this->session->userdata('status') != "admin_login") {
+		if ($this->session->userdata('status') != TRUE) {
 			redirect(base_url() . 'login?alert=belum_login');
 		}
 	}
@@ -32,6 +32,105 @@ class Admin extends CI_Controller
 	{
 		$this->session->sess_destroy();
 		redirect(base_url() . 'login/?alert=logout');
+	}
+
+	function user()
+	{
+		// mengambil data dari database
+		$data['petugas'] = $this->m_invoice->get_user();
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_user', $data);
+		$this->load->view('admin/v_footer');
+	}
+
+	function user_tambah()
+	{
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_user_tambah');
+		$this->load->view('admin/v_footer');
+	}
+
+	function user_tambah_aksi()
+	{
+		$nama = $this->input->post('nama');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		$data = array(
+			'nama' => $nama,
+			'username' => $username,
+			'password' => md5($password)
+		);
+
+		// insert data ke database
+		$this->m_invoice->insert_data($data, 'petugas');
+
+		// mengalihkan halaman ke halaman data petugas
+		$this->session->set_flashdata('flash', 'Menambahkan Data');
+		redirect(base_url() . 'admin/user');
+	}
+
+	function user_edit($id)
+	{
+		$where = array('id' => $id);
+		// mengambil data dari database sesuai id
+		$data['user'] = $this->m_invoice->edit_data($where, 'petugas')->result();
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_user_edit', $data);
+		$this->load->view('admin/v_footer');
+	}
+
+	function user_update()
+	{
+		$id = $this->input->post('id');
+		$nama = $this->input->post('nama');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		$where = array(
+			'id' => $id
+		);
+
+		// cek apakah form password di isi atau tidak
+		if ($password == "") {
+			$data = array(
+				'nama' => $nama,
+				'username' => $username
+			);
+
+			// update data ke database
+			$this->m_invoice->update_data($where, $data, 'petugas');
+		} else {
+			$data = array(
+				'nama' => $nama,
+				'username' => $username,
+				'password' => md5($password)
+			);
+
+			// update data ke database
+			$this->m_invoice->update_data($where, $data, 'petugas');
+		}
+		$this->session->set_flashdata('flash', 'Mengupdate Data');
+
+		// mengalihkan halaman ke halaman data petugas
+		redirect(base_url() . 'admin/user');
+	}
+
+
+	function user_hapus($id)
+	{
+		$where = array(
+			'id' => $id
+		);
+		$this->session->set_flashdata('flash', 'dihapus');
+		// menghapus data petugas dari database sesuai id
+		$this->m_invoice->delete_data($where, 'petugas');
+
+		// mengalihkan halaman ke halaman data petugas
+		redirect(base_url() . 'admin/user');
 	}
 
 	function invoice()
@@ -74,7 +173,7 @@ class Admin extends CI_Controller
 		];
 		$this->m_invoice->insert_data($data, 'invoice');
 		$this->session->set_flashdata('flash', 'Membuat Invoice');
-		redirect('invoice');
+		redirect('admin/invoice');
 	}
 
 	function invoice_edit($id)
@@ -105,7 +204,7 @@ class Admin extends CI_Controller
 		);
 		$this->m_invoice->update_data($where, $data, 'invoice');
 		$this->session->set_flashdata('flash', 'Update Invoice');
-		redirect('invoice/invoice_list');
+		redirect('admin/invoice_list');
 	}
 
 	function invoice_hapus($id)
@@ -113,7 +212,7 @@ class Admin extends CI_Controller
 		$where = array('id' => $id);
 		$this->m_invoice->delete_data($where, 'invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
-		redirect('invoice/invoice_list');
+		redirect('admin/invoice_list');
 	}
 
 	function invoice_list()

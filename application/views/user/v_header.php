@@ -37,11 +37,8 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <span class="navbar-text mr-3 text-center">
-                    Halo, <?php echo $this->session->userdata('username'); ?>
-                </span>
 
-                <a href="<?= base_url() . 'petugas/logout'; ?>" class="btn btn-outline-dark ml-1"><i class="fa fa-power-off"></i> Keluar</a>
+                <a href="<?= base_url() . 'user/logout'; ?>" class="btn btn-outline-dark ml-1"><i class="fa fa-power-off"></i> Keluar</a>
 
             </ul>
         </nav>
