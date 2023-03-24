@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <div align="center">
         <a href="<?= base_url() . 'admin'; ?>" class="brand-link">
-            <img src="<?= base_url() ?>dist/img/invoice.png" alt="Invoice" style="width:30%">
+            <img src="<?= base_url() ?>img/invoice.png" alt="Invoice" style="width:30%">
             <h3 class="brand-text"><b>INVOICE</b></h3>
         </a>
     </div>
@@ -38,14 +38,20 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url() . 'admin/invoice_jenis'; ?>" class="nav-link">
-                                <i class="nav-icon fas fa-newspaper"></i>
+                                <i class="nav-icon fa fa-file-invoice-dollar"></i>
                                 <p>Jenis Invoice</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url() . 'admin/invoice_pelayanan'; ?>" class="nav-link">
+                                <i class="nav-icon fa fa-file-invoice"></i>
+                                <p>Jenis Pelayanan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url() . 'admin/user'; ?>" class="nav-link">
                                 <i class="nav-icon fas fa-user-alt"></i>
-                                <p>User</p>
+                                <p>Users</p>
                             </a>
                         </li>
                     </ul>

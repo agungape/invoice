@@ -51,13 +51,11 @@
                     <span style="font-size: 14px;">
                         Jln. Diponegoro No.301 Telp. 0408-2421014 Fax. 0408-2422349
                     </span>
+                    <hr>
                 </td>
             </tr>
         </table>
     </div>
-    <!-- <div style="text-align:center">
-        <h3> Laporan Invoice</h3>
-    </div> -->
     <table id="table">
         <thead>
             <tr>

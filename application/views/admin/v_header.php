@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>dist/awesome/css/all.min.css">
     <!-- Theme style -->
+    <link rel="stylesheet" href="<?= base_url() ?>dist/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>dist/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>dist/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
 </head>
 
@@ -34,14 +37,11 @@
                     </h5>
                 </li>
             </ul>
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <span class="navbar-text mr-3 text-center">
-                    Halo, <?php echo $this->session->userdata('username'); ?>
+                    <b><?php echo $this->session->userdata('level'); ?></b> (<?php echo $this->session->userdata('nama'); ?>)
                 </span>
-
-                <a href="<?= base_url() . 'admin/logout'; ?>" class="btn btn-outline-dark ml-1"><i class="fa fa-power-off"></i> Keluar</a>
-
+                <a href="<?= base_url() . 'login/logout'; ?>" class="btn btn-outline-dark ml-1"><i class="fa fa-power-off"></i> Keluar</a>
             </ul>
         </nav>

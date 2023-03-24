@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Invoice</h1>
+                    <h1>Edit User</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Invoice</li>
+                        <li class="breadcrumb-item"><a href="#">User</a></li>
+                        <li class="breadcrumb-item active">Edit User</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card card-success">
                         <div class="card-header">
-                            <h3 class="card-title">Horizontal Form</h3>
+                            <h3 class="card-title">Edit User</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -36,11 +36,10 @@
                             <?= form_open('admin/user_update') ?>
                             <div class="card-body">
                                 <div class="card-body">
-                                    <?= form_open('admin/user_tambah_aksi'); ?>
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Nama</label>
                                         <div class="col-sm-3">
-                                            <input type="text" class="form-control" name="nama" value="<?php echo $u->id ?>" hidden>
+                                            <input type="text" class="form-control" name="id" value="<?php echo $u->id ?>" hidden>
                                             <input type="text" class="form-control" name="nama" value="<?php echo $u->nama ?>">
                                         </div>
                                     </div>
@@ -54,6 +53,24 @@
                                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control" name="password" value="<?php echo $u->password ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-sm-2 col-form-label">Level</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" name="level" value="<?php echo $u->level ?> ">
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-sm-2 col-form-label">Status</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" name="status" value="<?php echo $u->status ?>">
+                                                <option value="aktif">Aktif</option>
+                                                <option value="tidak aktif">Tidak Aktif</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

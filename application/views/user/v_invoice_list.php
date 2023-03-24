@@ -32,12 +32,12 @@
                                 <table class="table table-striped table-hover" id="table-datatable">
                                     <thead>
                                         <tr class="align-items-center">
-                                            <th>No</th>
+                                            <th>#</th>
+                                            <th>Di Buat</th>
                                             <th>Jenis Invoice</th>
                                             <th>Nomor Invoice</th>
+                                            <th>No. RM</th>
                                             <th>Nama Pasien</th>
-                                            <th>Keterangan</th>
-                                            <th width="100">Di Buat</th>
                                             <th width="100">Aksi</th>
                                         </tr>
                                     </thead>
@@ -46,15 +46,14 @@
                                         $no = 1;
                                         foreach ($invoice as $u) : ?>
                                             <tr class="">
-                                                <td><?= $no++ ?></td>
+                                                <td><?php echo $no++; ?></td>
+                                                <td><?php echo $u['created_at']; ?></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
                                                 <td><?php echo $u['nomor_invoice']; ?></td>
-                                                <td><?php echo $u['nama']; ?></td>
-                                                <td><?php echo $u['keterangan']; ?></td>
-                                                <td><?php echo $u['created_at']; ?></td>
+                                                <td><?php echo $u['no_rm']; ?></td>
+                                                <td style="text-transform: capitalize;"><?php echo $u['nama']; ?></td>
                                                 <td>
-                                                    <a target="_blank" href="<?php echo base_url() . 'user/cetak_invoice/' . $u['id']; ?>" title="cetak invoice" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i></a>
-                                                    <a href="<?php echo base_url() . 'user/invoice_edit/' . $u['id']; ?>" title="edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
+                                                    <a href="<?php echo base_url() . 'user/detail_invoice/' . $u['id']; ?>" title="Detail" class="btn btn-sm btn-outline-info"><i class="fa fa-eye"></i></a>
                                                     <a href="<?php echo base_url() . 'user/invoice_hapus/' . $u['id']; ?>" title="hapus" class="btn btn-sm btn-outline-danger tombol-hapus"><i class="fa fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>

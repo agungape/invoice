@@ -10,20 +10,20 @@ class M_invoice extends CI_Model
     {
         $tanggal = date('Y-m-d');
         $this->db->like('created_at', $tanggal);
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->order_by('created_at', 'desc');
         $query = $this->db->get('invoice');
         return $query->result_array();
     }
 
     public function get_in()
     {
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->order_by('created_at', 'desc');
         $query = $this->db->get('invoice');
         return $query->result_array();
     }
     public function get_user()
     {
-        $query = $this->db->get('petugas');
+        $query = $this->db->get('user');
         return $query->result_array();
     }
 
@@ -82,5 +82,23 @@ class M_invoice extends CI_Model
     function cek_login($table, $where)
     {
         return $this->db->get_where($table, $where);
+    }
+
+    public function buat_log($username, $aktifitas, $tb_aktifitas, $data_aktifitas)
+    {
+        $data = array(
+            'username' => $username,
+            'aktifitas' => $aktifitas,
+            'tb_aktifitas' => $tb_aktifitas,
+            'data_aktifitas' => $data_aktifitas
+        );
+        $this->db->insert('log', $data);
+    }
+
+    public function get_logs()
+    {
+        $this->db->order_by('waktu_log', 'desc');
+        $query = $this->db->get('log');
+        return $query->result_array();
     }
 }

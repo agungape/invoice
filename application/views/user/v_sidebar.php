@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <div align="center">
         <a href="<?= base_url() . 'user'; ?>" class="brand-link">
-            <img src="<?= base_url() ?>dist/img/invoice.png" alt="Invoice" style="width:30%">
+            <img src="<?= base_url() ?>img/invoice.png" alt="Invoice" style="width:30%">
             <h3 class="brand-text"><b>INVOICE</b></h3>
         </a>
     </div>

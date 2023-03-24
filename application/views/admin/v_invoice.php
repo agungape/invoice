@@ -32,58 +32,58 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4>
-                                    <i class="fas fa-globe"></i> Sim-RS, BLUD RS Konawe
+                                    <i class="fas fa-globe"></i> Forsa BLUD RS Konawe
                                     <small class="float-right"> <?php echo date('l, d-m-Y') ?></small>
                                 </h4>
                             </div>
                         </div>
-                        <div class="row invoice-info">
-                            <div class="col-sm-4 invoice-col">
-                                <div class="form-group">
-                                    <?= form_open('admin/invoice_tambah'); ?>
-                                    <label>Jenis Invoice</label>
-                                    <select name="id" class="form-control select2" style="width: 100%;" required>
-                                        <?php foreach ($jenis as $data) : ?>
-                                            <option value="<?= $data['kode_invoice']; ?>"><?= $data['jenis_invoice']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+
+                        <div class="form-group row pt-4">
+                            <label for="kode" class="col-sm-2 col-form-label">&emsp;&emsp;Jenis Invoice</label>
+                            <div class="col-sm-4">
+                                <?= form_open('admin/invoice_tambah'); ?>
+                                <select name="id" id="kode" class="form-control select2bs4" style="width: 100%;" required>
+                                    <?php
+                                    foreach ($jenis as $data) : ?>
+                                        <option value="<?= $data['kode_invoice']; ?>">(<?= $data['kode_invoice']; ?>) <?= $data['jenis_invoice']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                            <div class="col-sm-4 invoice-col">
-                                <div class="form-group">
-                                    <label class="text-white">.</label><br>
-                                    <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modaltambah"><i class="fas fa-sync-alt"></i> Buat Invoice</button>
-                                    <?= form_close(); ?>
-                                </div>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modaltambah"><i class="fas fa-sync-alt"></i> Buat Invoice</button>
+                                <?= form_close(); ?>
                             </div>
-                        </div><br>
-                        <div class="row">
+                        </div>
+                        <div class="row pt-4">
                             <div class="col-12 table-responsive">
                                 <table class="table table-striped table-hover" id="table-datatable">
                                     <thead>
                                         <tr class="align-items-center">
-                                            <th>No</th>
+                                            <th>#</th>
+                                            <th>Di Buat</th>
                                             <th>Jenis Invoice</th>
                                             <th>Nomor Invoice</th>
                                             <th>Nama Pasien</th>
-                                            <th>Keterangan</th>
-                                            <th>Di Buat</th>
-                                            <th width="60">Aksi</th>
+                                            <th>No. RM</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $no = 1;
                                         foreach ($invoice as $u) : ?>
-                                            <tr class="">
-                                                <td><?= $no++ ?></td>
+                                            <tr>
+                                                <td><?php echo $no++ ?></td>
+                                                <td><?php echo $u['created_at']; ?></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
                                                 <td><?php echo $u['nomor_invoice']; ?></td>
-                                                <td><?php echo $u['nama']; ?></td>
-                                                <td><?php echo $u['keterangan']; ?></td>
-                                                <td><?php echo $u['created_at']; ?></td>
+                                                <td style="text-transform: capitalize;"><?php echo $u['nama']; ?></td>
+                                                <td><?php echo $u['no_rm']; ?></td>
+
                                                 <td>
-                                                    <a target="_blank" href="<?php echo base_url() . 'admin/cetak_invoice/' . $u['id']; ?>" class="btn btn-sm btn-outline-info"><i class="fa fa-address-card"></i> Cetak</a>
+                                                    <a href="<?php echo base_url() . 'admin/detail_invoice/' . $u['id']; ?>" title="Detail" class="btn btn-sm btn-outline-info"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() . 'admin/invoice_edit/' . $u['id']; ?>" title="edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
+                                                    <a target="_blank" href="<?php echo base_url() . 'admin/cetak_invoice/' . $u['id']; ?>" title="Cetak" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <p align="center">Copyright &copy; <?= date('Y') ?> <a href="">Sistem Informasi BLUD Rumah Sakit Konawe</a></p>
+    <p align="center">Copyright &copy; <?= date('Y') ?> <a target="_blank" href="http://192.168.10.15:8082/login">Sistem Informasi BLUD Rumah Sakit Konawe</a></p>
 </footer>
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
@@ -19,7 +19,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
-
+<script src="<?= base_url() ?>dist/js/jquery.masknumber.js"></script>
+<script src="<?= base_url() ?>dist/plugins/select2/js/select2.full.min.js"></script>
 <script>
     //sweet alert
     const flashData = $('.flash-data').data('flashdata');
@@ -59,6 +60,35 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table-datatable').DataTable();
+    });
+</script>
+<script>
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+</script>
+<script>
+    const input = document.getElementById("nilai");
+
+    // Add event listener to input field
+    input.addEventListener("input", function(event) {
+        // Get input value
+        let value = event.target.value;
+
+        // Remove non-numeric characters
+        value = value.replace(/[^0-9]/g, '');
+
+        // Format value as currency
+        const formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        });
+
+        const formattedValue = formatter.format(value);
+
+        // Update input value
+        event.target.value = formattedValue;
     });
 </script>
 </body>
