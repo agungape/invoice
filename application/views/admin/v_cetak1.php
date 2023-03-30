@@ -25,10 +25,13 @@
         }
 
         #tabel td {
-            /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
             text-align: left;
             line-height: 1.1;
             font-size: 8px;
+        }
+
+        #tabel tr {
+            padding-bottom: 10px;
         }
 
         #tabel1 th {
@@ -73,7 +76,7 @@
     <table id="tabel">
         <?php foreach ($invoice as $i) { ?>
             <tr>
-                <td width="35%">No. Rekam Medis</td>
+                <td width="33%">No. Rekam Medis</td>
                 <td width="2%">:</td>
                 <td><?php echo $i->no_rm; ?></td>
             </tr>
@@ -92,25 +95,53 @@
                 <td width="2%">:</td>
                 <td style="text-transform: capitalize;"><?php echo $i->alamat; ?></td>
             </tr>
-            <tr style="padding-bottom:10px;">
+            <tr>
                 <td valign="top" width="25%">Jenis Pelayanan</td>
                 <td valign="top" width="2%">:</td>
                 <td style="text-transform: capitalize;"><?php echo $i->jns_pelayanan; ?></td>
             </tr>
             <tr>
-                <td width="25%">Keterangan</td>
-                <td width="2%">:</td>
-                <td style="text-transform: capitalize;"><?php echo $i->keterangan; ?></td>
+                <td valign="top" width="25%">Keterangan</td>
+                <td valign="top" width="2%">:</td>
+                <td style="text-transform: capitalize;">
+                    <?php if ($i->tinggi_badan > 0) { ?>
+                        Tb:<?php echo $i->tinggi_badan ?> cm.&nbsp;
+                    <?php
+                    } else {
+                        echo "";
+                    } ?>
+                    <?php if ($i->berat_badan > 0) { ?>
+                        Bb:<?php echo $i->berat_badan ?> kg.&nbsp;
+                    <?php
+                    } else {
+                        echo "";
+                    } ?>
+                    <?php if ($i->suhu_badan > 0) { ?>
+                        Sb:<?php echo $i->suhu_badan ?> &deg;C.
+                    <?php
+                    } else {
+                        echo "";
+                    } ?>
+                    <?php if ($i->keterangan == true) { ?>
+                        Lainnya : <?php echo $i->keterangan; ?>
+                    <?php
+                    } else {
+                        echo "";
+                    } ?>
+                </td>
             </tr>
-            <tr style="padding-bottom:10px;">
+            <tr>
                 <td valign="top" width="25%">Nilai Tagihan</td>
                 <td valign="top" width="2%">:</td>
                 <td style="text-transform: capitalize;">Rp <?php echo number_format($i->nilai, 0, ',', '.'); ?></td>
             </tr>
+            <tr style="padding-bottom:10px;">
+                <td valign="top" width="25%"></td>
+                <td valign="top" width="2%"></td>
+                <td class="text-light" style=" text-transform: capitalize;">.</td>
+            </tr>
         <?php } ?>
     </table>
-
-
 
     <script type="text/javascript">
         window.print();

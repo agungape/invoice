@@ -33,15 +33,19 @@ class M_invoice extends CI_Model
         return $query->result_array();
     }
 
-    public function auto_code($a)
+    public function auto_code($kode)
     {
-        $query = $this->db->query("SELECT MAX(nomor_invoice) as InvoiceMax FROM invoice WHERE kode_invoice ='$a'");
+        $this->db->select_max('nomor_invoice');
+        $this->db->from('invoice');
+        $this->db->where('kode_invoice', $kode);
+        // $query = $this->db->query("SELECT MAX(nomor_invoice) FROM invoice WHERE kode_invoice ='$jenis'");
+        $query = $this->db->get();
         return $query->row_array();
     }
 
-    public function get_inisial($a)
+    public function get_inisial($kode)
     {
-        $query = $this->db->get_where('jns_invoice', ['kode_invoice' => $a]);
+        $query = $this->db->get_where('jns_invoice', ['kode_invoice' => $kode]);
         return $query->row_array();
     }
 
@@ -74,6 +78,13 @@ class M_invoice extends CI_Model
         return $this->db->get()->num_rows();
     }
 
+    function get_userlog($user)
+    {
+        $this->db->where('no_user', $user);
+        $this->db->from('log');
+        return $this->db->get()->num_rows();
+    }
+
     function get_data($table)
     {
         return $this->db->get($table);
@@ -84,10 +95,11 @@ class M_invoice extends CI_Model
         return $this->db->get_where($table, $where);
     }
 
-    public function buat_log($username, $aktifitas, $tb_aktifitas, $data_aktifitas)
+    public function buat_log($username, $no_user, $aktifitas, $tb_aktifitas, $data_aktifitas)
     {
         $data = array(
             'username' => $username,
+            'no_user' => $no_user,
             'aktifitas' => $aktifitas,
             'tb_aktifitas' => $tb_aktifitas,
             'data_aktifitas' => $data_aktifitas

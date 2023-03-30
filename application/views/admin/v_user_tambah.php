@@ -42,6 +42,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="level" class="col-sm-2 col-form-label">No User</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="no_user">
+                                            <option value="user1">user 1</option>
+                                            <option value="user2">User 2</option>
+                                            <option value="user3">User 3</option>
+                                            <option value="user4">User 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control" name="username" placeholder="Masukkan Username" required>

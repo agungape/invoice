@@ -40,6 +40,7 @@
                                         <label for="name" class="col-sm-2 col-form-label">Nama</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" name="id" value="<?php echo $u->id ?>" hidden>
+                                            <input type="text" class="form-control" name="no_user" value="<?php echo $u->no_user ?>" hidden>
                                             <input type="text" class="form-control" name="nama" value="<?php echo $u->nama ?>">
                                         </div>
                                     </div>

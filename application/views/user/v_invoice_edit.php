@@ -97,6 +97,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="tb">Tinggi Badan</label>
+                                    <input style="text-transform: capitalize;" type="text" id="tb" class="form-control" name="tb" value="<?php echo $u->tinggi_badan ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="tb">Berat Badan</label>
+                                    <input style="text-transform: capitalize;" type="text" id="bb" class="form-control" name="bb" value="<?php echo $u->berat_badan ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="sh">Suhu Badan</label>
+                                    <input style="text-transform: capitalize;" type="text" id="sh" class="form-control" name="sb" value="<?php echo $u->suhu_badan ?>">
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="form-group">
                             <span class="text-danger">*</span>
                             <label for="nilai">Nilai</label>
@@ -107,32 +128,37 @@
                                 <input type="text" name="nilai" id="nilai" value="<?php echo $u->nilai ?>" class="form-control" required="required">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="layanan">Jenis Pelayanan</label>
-                            <select name="layanan[]" id="layanan" class="form-control select2bs4" multiple="multiple" style="width: 100%;">
-                                <?php foreach ($pelayanan as $data) { ?>
-                                    <option value="<?= $data->nama; ?>" <?php echo in_array($data->nama, explode(',', $u->jns_pelayanan)) ? 'selected' : ''; ?>><?php echo $data->nama; ?></option>
-                                <?php } ?>
-                            </select>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="layanan">Jenis Pelayanan</label>
+                                    <select name="layanan[]" id="layanan" class="form-control select2bs4" multiple="multiple" style="width: 100%;">
+                                        <?php foreach ($pelayanan as $data) { ?>
+                                            <option value="<?= $data->nama; ?>" <?php echo in_array($data->nama, explode(',', $u->jns_pelayanan)) ? 'selected' : ''; ?>><?php echo $data->nama; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="keterangan">Lainnya</label>
+                                    <input style="text-transform: capitalize;" type="text" id="keterangan" class="form-control" name="keterangan" value="<?php echo $u->keterangan ?>">
+                                </div>
+                            </div>
                         </div>
                         <input type="text" class="form-control" name="id" value="<?php echo $u->id ?>" readonly hidden>
                         <input type="text" class="form-control" name="kode" value="<?php echo $u->kode_invoice ?>" readonly hidden>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <textarea style="text-transform: capitalize;" id="keterangan" class="form-control" name="keterangan"><?php echo $u->keterangan ?></textarea>
-                        </div>
-                        <div class="form-group">
+
+                        <div class=" form-group">
                             <a href="<?= base_url() . 'user/invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
                             <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-right: 5px;">
                                 <i class="fas fa-download"></i> Update Invoice
                             </button>
+                            <? form_close() ?>
+                        <?php } ?>
                         </div>
-
-                        <? form_close() ?>
-                    <?php } ?>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </div>

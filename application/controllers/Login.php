@@ -85,6 +85,7 @@ class Login extends CI_Controller
 
 					if ($row->status == "aktif") {
 						$this->session->set_userdata('username', $row->username);
+						$this->session->set_userdata('no_user', $row->no_user);
 						$this->session->set_userdata('nama', $row->nama);
 						$this->session->set_userdata('level', $row->level);
 

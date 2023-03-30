@@ -178,90 +178,19 @@
                                 </button>
                             </div>
                         </div>
+
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="nilai" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-12">
-                    <div class="card card-teal">
-                        <div class="card-header">
-                            <h3 class="card-title">Riwayat Aktifitas</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="col-md-12 table-responsive">
-                                <table class="table table-striped table-hover" id="table-datatable">
-                                    <thead>
-                                        <tr class="align-items-center">
-                                            <th>No</th>
-                                            <th>Nama User</th>
-                                            <th>Aktifitas</th>
-                                            <th>Tabel</th>
-                                            <th>Waktu</th>
-                                            <th>Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 1;
-                                        foreach ($log as $u) : ?>
-                                            <tr>
-                                                <td><?php echo $no++ ?></td>
-                                                <td style="text-transform: capitalize;"><?php echo $u['username']; ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($u['aktifitas'] == "mengubah") {
-                                                        echo "<span class='badge badge-warning'>Mengubah</span>";
-                                                    } else if ($u['aktifitas'] == "menambahkan") {
-                                                        echo "<span class='badge badge-success'>Menambahkan</span>";
-                                                    } else if ($u['aktifitas'] == "menghapus") {
-                                                        echo "<span class='badge badge-danger'>Menghapus</span>";
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td><?php echo $u['tb_aktifitas']; ?></td>
-                                                <td><?php echo $u['waktu_log']; ?></td>
-                                                <td>
-                                                    <a href="<?php echo base_url() . 'admin/detail_log/' . $u['id']; ?>" title="Detail" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modal-default"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                                <div class="modal fade" id="modal-default">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Detail</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <?php echo $u['data_aktifitas']; ?>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-
-
-
-
 
 <script script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -327,3 +256,4 @@
         }
     });
 </script>
+=

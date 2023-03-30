@@ -54,6 +54,12 @@
                                 <p>Users</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url() . 'admin/penilaian_user'; ?>" class="nav-link">
+                                <i class="nav-icon fas fa-user-pen"></i>
+                                <p>Penilaian Users</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

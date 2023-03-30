@@ -53,6 +53,7 @@ class Admin extends CI_Controller
 	function user_tambah_aksi()
 	{
 		$nama = $this->input->post('nama');
+		$no_user = $this->input->post('no_user');
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$level = $this->input->post('level');
@@ -60,6 +61,7 @@ class Admin extends CI_Controller
 
 		$data = array(
 			'nama' => $nama,
+			'no_user' => $no_user,
 			'username' => $username,
 			'password' => $password,
 			'level' => $level,
@@ -67,7 +69,9 @@ class Admin extends CI_Controller
 		);
 
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menambahkan', 'user', $activity_data); // log aksi "created"
+		$session1 = $this->session->userdata('username');
+		$session2 = $this->session->userdata('no_user');
+		$this->m_invoice->buat_log($session1, $session2, 'menambahkan', 'user', $activity_data); // log aksi "created"
 
 		// insert data ke database
 		$this->m_invoice->insert_data($data, 'user');
@@ -92,6 +96,7 @@ class Admin extends CI_Controller
 	{
 		$id = $this->input->post('id');
 		$nama = $this->input->post('nama');
+		$no_user = $this->input->post('no_user');
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$level = $this->input->post('level');
@@ -105,28 +110,24 @@ class Admin extends CI_Controller
 		if ($password == "") {
 			$data = array(
 				'nama' => $nama,
+				'no_user' => $no_user,
 				'username' => $username,
 				'level' => $level,
 				'status' => $status
 			);
-
-			$activity_data = json_encode($data); // mengubah data ke format JSON
-			$this->m_invoice->buat_log($this->session->userdata('username'), 'mengubah', 'user', $activity_data); // log aksi "created"
-			// update data ke database
-			$this->m_invoice->update_data($where, $data, 'petugas');
 		} else {
 			$data = array(
 				'nama' => $nama,
 				'username' => $username,
+				'no_user' => $no_user,
 				'password' => $password,
 				'level' => $level,
 				'status' => $status
 			);
-			$activity_data = json_encode($data); // mengubah data ke format JSON
-			$this->m_invoice->buat_log($this->session->userdata('username'), 'mengubah', 'user', $activity_data); // log aksi "created"
-			// update data ke database
-			$this->m_invoice->update_data($where, $data, 'user');
 		}
+		$this->m_invoice->update_data($where, $data, 'user');
+		$activity_data = json_encode($data); // mengubah data ke format JSON
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'mengubah', 'user', $activity_data); // log aksi "created"
 		$this->session->set_flashdata('flash', 'Mengupdate Data');
 
 		// mengalihkan halaman ke halaman data petugas
@@ -141,7 +142,7 @@ class Admin extends CI_Controller
 		);
 
 		$activity_data = json_encode($where); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menghapus', 'user', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menghapus', 'user', $activity_data); // log aksi "created"
 		$this->session->set_flashdata('flash', 'dihapus');
 		// menghapus data petugas dari database sesuai id
 		$this->m_invoice->delete_data($where, 'user');
@@ -162,10 +163,9 @@ class Admin extends CI_Controller
 
 	function invoice_tambah()
 	{
-		$a = $_POST['id'];
+		$kode = $this->input->post('kode');
 		$data = [
-			'kode' => $this->m_invoice->auto_code($a),
-			'in' => $this->m_invoice->get_inisial($a),
+			'in' => $this->m_invoice->get_inisial($kode),
 			'pelayanan' => $this->m_invoice->get_data('jns_pelayanan')->result()
 		];
 		$this->load->view('admin/v_header');
@@ -178,30 +178,44 @@ class Admin extends CI_Controller
 	{
 		$kode = $this->input->post('kode');
 		$jenis = $this->input->post('jenis');
-		$invoice = $this->input->post('invoice');
+		// buat kode invoice
+		$a =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
+		$hari = date('Y');
+		$rs = ('RSK');
+		$garing = ('/');
+		$urut = (int)substr($a, 13, 4);
+		$urut++;
+		$kd = $kode . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
+		// akhir buat kode
 		$nama = $this->input->post('nama');
 		$rm = $this->input->post('rm');
 		$tanggal = $this->input->post('tanggal');
 		$alamat = $this->input->post('alamat');
 		$nilai_awal = $this->input->post('nilai');
 		$keterangan = $this->input->post('keterangan');
+		$tb = $this->input->post('tb');
+		$bb = $this->input->post('bb');
+		$sh = $this->input->post('sb');
 		$layanan = $this->input->post('layanan');
 		$pelayanan = implode('<br>', $layanan);
 		$nilai = preg_replace('/[^0-9]/', '', $nilai_awal);
 		$data = array(
 			'jenis_invoice' => $jenis,
-			'nomor_invoice' => $invoice,
+			'nomor_invoice' => $kd,
 			'kode_invoice' => $kode,
 			'nama' => $nama,
 			'no_rm' => $rm,
 			'tgl_lahir' => $tanggal,
 			'nilai' => $nilai,
+			'tinggi_badan' => $tb,
+			'berat_badan' => $bb,
+			'suhu_badan' => $sh,
 			'alamat' => $alamat,
 			'keterangan' => $keterangan,
 			'jns_pelayanan' => $pelayanan
 		);
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->insert_data($data, 'invoice');
 
 		$this->session->set_flashdata('flash', 'Membuat Invoice');
@@ -226,6 +240,9 @@ class Admin extends CI_Controller
 		$jenis = $this->input->post('jenis');
 		$invoice = $this->input->post('invoice');
 		$nama = $this->input->post('nama');
+		$tb = $this->input->post('tb');
+		$bb = $this->input->post('bb');
+		$sb = $this->input->post('sb');
 		$rm = $this->input->post('rm');
 		$tanggal = $this->input->post('tanggal');
 		$alamat = $this->input->post('alamat');
@@ -239,6 +256,9 @@ class Admin extends CI_Controller
 			'nomor_invoice' => $invoice,
 			'kode_invoice' => $kode,
 			'nama' => $nama,
+			'tinggi_badan' => $tb,
+			'berat_badan' => $bb,
+			'suhu_badan' => $sb,
 			'no_rm' => $rm,
 			'tgl_lahir' => $tanggal,
 			'nilai' => $nilai,
@@ -252,7 +272,7 @@ class Admin extends CI_Controller
 		);
 
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'mengubah', 'invoice', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'mengubah', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->update_data($where, $data, 'invoice');
 		$this->session->set_flashdata('flash', 'Update Invoice');
 		redirect('admin/invoice');
@@ -260,9 +280,12 @@ class Admin extends CI_Controller
 
 	function invoice_hapus($id)
 	{
-		$where = array('id' => $id);
-		$activity_data = json_encode($where); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
+		$where = array(
+			'id' => $id
+		);
+		$data = $this->db->get_where('invoice', array('id' => $id))->row_array();
+		$activity_data = json_encode($data); // mengubah data ke format JSON
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($where, 'invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('admin/invoice_list');
@@ -306,8 +329,6 @@ class Admin extends CI_Controller
 				'jenis_invoice' => $jenis
 			];
 
-			$activity_data = json_encode($data); // mengubah data ke format JSON
-			$this->m_invoice->buat_log($this->session->userdata('username'), 'menambahkan', 'jenis invoice', $activity_data); // log aksi "created"
 			$this->m_invoice->insert_data($data, 'jns_invoice');
 			$this->session->set_flashdata('flash', 'Menambahkan Data');
 			redirect('admin/invoice_jenis');
@@ -322,8 +343,6 @@ class Admin extends CI_Controller
 		$id = [
 			'kode_invoice' => $id
 		];
-		$activity_data = json_encode($id); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($id, 'jns_invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('admin/invoice_jenis');
@@ -387,8 +406,6 @@ class Admin extends CI_Controller
 				'nama' => $jenis
 			];
 
-			$activity_data = json_encode($data); // mengubah data ke format JSON
-			$this->m_invoice->buat_log($this->session->userdata('username'), 'menambahkan', 'pelayanan', $activity_data); // log aksi "created"
 			$this->m_invoice->insert_data($data, 'jns_pelayanan');
 			$this->session->set_flashdata('flash', 'Menambahkan Data');
 			redirect('admin/invoice_pelayanan');
@@ -403,10 +420,24 @@ class Admin extends CI_Controller
 		$id = [
 			'id' => $id
 		];
-		$activity_data = json_encode($id); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menghapus', 'pelayanan', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($id, 'jns_pelayanan');
 		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('admin/invoice_pelayanan');
+	}
+
+	function penilaian_user()
+	{
+		$data['user1'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user1' and aktifitas = 'menambahkan' ")->result_array();
+		$data['user2'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user2' and aktifitas = 'menambahkan' ")->result_array();
+		$data['user3'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user3' and aktifitas = 'menambahkan' ")->result_array();
+		$data['nilai1'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user1' and aktifitas = 'menambahkan'  GROUP BY MONTH(waktu_log)")->result_array();
+		$data['nilai2'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user2' and aktifitas = 'menambahkan' GROUP BY MONTH(waktu_log)")->result_array();
+		$data['nilai3'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user3' and aktifitas = 'menambahkan' GROUP BY MONTH(waktu_log)")->result_array();
+		$data['log'] = $this->m_invoice->get_logs();
+		$data['user'] = $this->m_invoice->get_user();
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_penilaian', $data);
+		$this->load->view('admin/v_footer');
 	}
 }

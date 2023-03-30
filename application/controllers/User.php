@@ -32,6 +32,7 @@ class User extends CI_Controller
 		$this->load->view('user/v_footer');
 	}
 
+
 	function invoice()
 	{
 		$data['invoice'] = $this->m_invoice->get_inv();
@@ -44,10 +45,9 @@ class User extends CI_Controller
 
 	function invoice_tambah()
 	{
-		$a = $_POST['id'];
+		$kode = $this->input->post('kode');
 		$data = [
-			'kode' => $this->m_invoice->auto_code($a),
-			'in' => $this->m_invoice->get_inisial($a),
+			'in' => $this->m_invoice->get_inisial($kode),
 			'pelayanan' => $this->m_invoice->get_data('jns_pelayanan')->result()
 		];
 		$this->load->view('user/v_header');
@@ -60,30 +60,44 @@ class User extends CI_Controller
 	{
 		$kode = $this->input->post('kode');
 		$jenis = $this->input->post('jenis');
-		$invoice = $this->input->post('invoice');
+		// buat kode invoice
+		$a =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
+		$hari = date('Y');
+		$rs = ('RSK');
+		$garing = ('/');
+		$urut = (int)substr($a, 13, 4);
+		$urut++;
+		$kd = $kode . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
+		// akhir buat kode
 		$nama = $this->input->post('nama');
 		$rm = $this->input->post('rm');
 		$tanggal = $this->input->post('tanggal');
 		$alamat = $this->input->post('alamat');
 		$nilai_awal = $this->input->post('nilai');
 		$keterangan = $this->input->post('keterangan');
+		$tb = $this->input->post('tb');
+		$bb = $this->input->post('bb');
+		$sh = $this->input->post('sb');
 		$layanan = $this->input->post('layanan');
 		$pelayanan = implode('<br>', $layanan);
 		$nilai = preg_replace('/[^0-9]/', '', $nilai_awal);
 		$data = array(
 			'jenis_invoice' => $jenis,
-			'nomor_invoice' => $invoice,
+			'nomor_invoice' => $kd,
 			'kode_invoice' => $kode,
 			'nama' => $nama,
 			'no_rm' => $rm,
 			'tgl_lahir' => $tanggal,
 			'nilai' => $nilai,
+			'tinggi_badan' => $tb,
+			'berat_badan' => $bb,
+			'suhu_badan' => $sh,
 			'alamat' => $alamat,
 			'keterangan' => $keterangan,
 			'jns_pelayanan' => $pelayanan
 		);
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->insert_data($data, 'invoice');
 
 		$this->session->set_flashdata('flash', 'Membuat Invoice');
@@ -108,6 +122,9 @@ class User extends CI_Controller
 		$jenis = $this->input->post('jenis');
 		$invoice = $this->input->post('invoice');
 		$nama = $this->input->post('nama');
+		$tb = $this->input->post('tb');
+		$bb = $this->input->post('bb');
+		$sb = $this->input->post('sb');
 		$rm = $this->input->post('rm');
 		$tanggal = $this->input->post('tanggal');
 		$alamat = $this->input->post('alamat');
@@ -121,6 +138,9 @@ class User extends CI_Controller
 			'nomor_invoice' => $invoice,
 			'kode_invoice' => $kode,
 			'nama' => $nama,
+			'tinggi_badan' => $tb,
+			'berat_badan' => $bb,
+			'suhu_badan' => $sb,
 			'no_rm' => $rm,
 			'tgl_lahir' => $tanggal,
 			'nilai' => $nilai,
@@ -134,7 +154,7 @@ class User extends CI_Controller
 		);
 
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'mengubah', 'invoice', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'mengubah', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->update_data($where, $data, 'invoice');
 		$this->session->set_flashdata('flash', 'Update Invoice');
 		redirect('user/invoice');
@@ -142,12 +162,15 @@ class User extends CI_Controller
 
 	function invoice_hapus($id)
 	{
-		$where = array('id' => $id);
+		$where = array(
+			'id' => $id
+		);
+		$data = $this->db->get_where('invoice', array('id' => $id))->row_array();
 		$activity_data = json_encode($data); // mengubah data ke format JSON
-		$this->m_invoice->buat_log($this->session->userdata('username'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
+		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($where, 'invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
-		redirect('user/invoice_list');
+		redirect('admin/invoice_list');
 	}
 
 	function invoice_list()

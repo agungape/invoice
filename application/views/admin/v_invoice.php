@@ -42,7 +42,7 @@
                             <label for="kode" class="col-sm-2 col-form-label">&emsp;&emsp;Jenis Invoice</label>
                             <div class="col-sm-4">
                                 <?= form_open('admin/invoice_tambah'); ?>
-                                <select name="id" id="kode" class="form-control select2bs4" style="width: 100%;" required>
+                                <select name="kode" id="kode" class="form-control select2bs4" style="width: 100%;" required>
                                     <?php
                                     foreach ($jenis as $data) : ?>
                                         <option value="<?= $data['kode_invoice']; ?>">(<?= $data['kode_invoice']; ?>) <?= $data['jenis_invoice']; ?></option>

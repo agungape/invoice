@@ -42,7 +42,7 @@
                             <label for="kode" class="col-sm-2 col-form-label">&emsp;&emsp;Jenis Invoice</label>
                             <div class="col-sm-4">
                                 <?= form_open('user/invoice_tambah'); ?>
-                                <select name="id" id="kode" class="form-control select2bs4" style="width: 100%;" required>
+                                <select name="kode" id="kode" class="form-control select2bs4" style="width: 100%;" required>
                                     <?php
                                     foreach ($jenis as $data) : ?>
                                         <option value="<?= $data['kode_invoice']; ?>">(<?= $data['kode_invoice']; ?>) <?= $data['jenis_invoice']; ?></option>
@@ -63,9 +63,9 @@
                                             <th>Di Buat</th>
                                             <th>Jenis Invoice</th>
                                             <th>Nomor Invoice</th>
-                                            <th>No. RM</th>
                                             <th>Nama Pasien</th>
-                                            <th width="100">Aksi</th>
+                                            <th>No. RM</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,12 +73,12 @@
                                         $no = 1;
                                         foreach ($invoice as $u) : ?>
                                             <tr>
-                                                <td><?php echo $no++; ?></td>
+                                                <td><?php echo $no++ ?></td>
                                                 <td><?php echo $u['created_at']; ?></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
                                                 <td><?php echo $u['nomor_invoice']; ?></td>
-                                                <td><?php echo $u['no_rm']; ?></td>
                                                 <td style="text-transform: capitalize;"><?php echo $u['nama']; ?></td>
+                                                <td><?php echo $u['no_rm']; ?></td>
 
                                                 <td>
                                                     <a href="<?php echo base_url() . 'user/detail_invoice/' . $u['id']; ?>" title="Detail" class="btn btn-sm btn-outline-info"><i class="fa fa-eye"></i></a>

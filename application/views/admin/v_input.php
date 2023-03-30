@@ -39,26 +39,14 @@
                             </div>
                         </div>
                         <?php
-                        $a = $kode['InvoiceMax'];
                         $b = $in['kode_invoice'];
                         $c = $in['jenis_invoice'];
-                        $hari = date('Y');
-                        $rs = ('RSK');
-                        $garing = ('/');
-                        $urut = (int)substr($a, 13, 4);
-                        $urut++;
-                        $kd = $b . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
-                        // echo '<h5 class="text-center">' . $c . '</h5><h1 class="text-center">' . $kd . '</h1>'
                         ?>
                         <?= form_open('admin/invoice_tambah_aksi') ?>
                         <div class="form-group">
-                            <span class="text-danger">*</span>
-                            <label for="inputName">Nomor Invoice</label>
-                            <input type="text" class="form-control" name="invoice" value="<?= $kd; ?>" readonly>
-                        </div>
-                        <div class="form-group">
-                            <span class="text-danger">*</span>
+                            <span class="text-danger"></span>
                             <label for="inputEmail">Jenis Invoice</label>
+                            <input type="text" class="form-control" name="kode" value="<?= $b; ?>" readonly hidden>
                             <input type="text" class="form-control" name="jenis" value="<?= $c; ?>" readonly>
                         </div>
                     </div>
@@ -108,6 +96,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="tb">Tinggi Badan</label>
+                                    <input style="text-transform: capitalize;" type="number" id="tb" class="form-control" name="tb" placeholder="Cm">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="tb">Berat Badan</label>
+                                    <input style="text-transform: capitalize;" type="number" id="bb" class="form-control" name="bb" placeholder="Kg">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="sh">Suhu Badan</label>
+                                    <input style="text-transform: capitalize;" type="number" id="sh" class="form-control" name="sb" placeholder="&deg;C">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <span class="text-danger">*</span>
                             <label for="nilai">Nilai</label>
@@ -117,20 +125,27 @@
                                 </div>
                                 <input type="text" name="nilai" id="nilai" placeholder="Rp 000.000" class="form-control" required="required">
                             </div>
+                            <p style="font-size: small;"> <span class="text-danger">*</span>periksa kembali inputan Nilai anda secara teliti</p>
                         </div>
-                        <div class="form-group">
-                            <label for="layanan">Jenis Pelayanan</label>
-                            <select name="layanan[]" class="form-control select2bs4" id="layanan" multiple="multiple" data-placeholder="Pilih Pelayanan" style="width: 100%;">
-                                <?php foreach ($pelayanan as $data) { ?>
-                                    <option value="<?= $data->nama; ?>"><?= $data->nama; ?></option>
-                                <?php } ?>
-                            </select>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="layanan">Jenis Pelayanan</label>
+                                    <select name="layanan[]" class="form-control select2bs4" id="layanan" multiple="multiple" data-placeholder="Pilih Pelayanan" style="width: 100%;">
+                                        <?php foreach ($pelayanan as $data) { ?>
+                                            <option value="<?= $data->nama; ?>"><?= $data->nama; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="keterangan">Lainnya</label>
+                                    <input style="text-transform: capitalize;" type="text" id="keterangan" class="form-control" name="keterangan" placeholder="Lainnya">
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" name="kode" value="<?= $b; ?>" readonly hidden>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <input style="text-transform: capitalize;" type="text" id="keterangan" class="form-control" name="keterangan" placeholder="Masukkan Keterangan bila ada">
-                        </div>
+
                         <div class="form-group">
                             <a href="<?= base_url() . 'admin/invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
                             <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-right: 5px;">

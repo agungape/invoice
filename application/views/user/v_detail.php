@@ -37,7 +37,6 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <img class="profile-user-img img-fluid img-circle" src="<?= base_url() ?>img/invoice.png" alt="User profile picture">
-
                                         <h3 class="profile-username text-center" style="text-transform: capitalize;"><?= $i->nama ?></h3>
                                         <p class="text-muted text-center"><?= $i->tgl_lahir ?></p>
                                         <ul class="list-group list-group-unbordered mb-3">
@@ -86,7 +85,9 @@
                                     <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item">
                                             <b>Jenis Pelayanan :</b><br>
-                                            <p style="text-transform: capitalize;" align="left"><?= $i->jns_pelayanan ?>
+                                            <p style="text-transform: capitalize;" align="left"><?= $i->jns_pelayanan ?></p><br>
+                                            <b>Lainnya:</b>
+                                            <p style="text-transform: capitalize;" align="left"><?= $i->keterangan ?>
                                             </p>
                                         </li>
                                     </ul>
@@ -95,7 +96,23 @@
                                     <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item">
                                             <b>Keterangan :</b><br>
-                                            <p style="text-transform: capitalize;" align="left"><?= $i->keterangan ?>
+                                            <p style="text-transform: capitalize;" align="left">
+                                                <tr>
+                                                    <td>Tinggi Badan</td>
+                                                    <td>:</td>
+                                                    <td><?= $i->tinggi_badan ?></td>
+                                                </tr><br>
+                                                <tr>
+                                                    <td>Berat Badan</td>
+                                                    <td>:</td>
+                                                    <td><?= $i->berat_badan ?></td>
+                                                </tr><br>
+                                                <tr>
+                                                    <td>Suhu Badan</td>
+                                                    <td>:</td>
+                                                    <td><?= $i->suhu_badan ?></td>
+                                                </tr>
+
                                             </p>
                                         </li>
                                     </ul>
