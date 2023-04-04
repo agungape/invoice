@@ -83,9 +83,8 @@
                             <div class="col-sm-4">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <span class="text-danger">*</span>
                                     <label for="tanggal">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="tanggal" name="tanggal" required="required">
+                                    <input type="date" class="form-control" id="tanggal" name="tanggal">
                                 </div>
                             </div>
                             <div class="col-sm-8">

@@ -40,11 +40,30 @@
             line-height: 1.1;
             font-size: 7px;
         }
+
+        .watermark {
+
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            transform: translate(-10%, -10%);
+            font-size: 45px;
+            font-weight: bold;
+            color: #cccccc;
+            opacity: 0.5;
+            z-index: -1;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    </style>
     </style>
 </head>
 
 <body>
-
+    <div class="watermark">LUNAS</div>
     <table id="table" style="width: 100%;">
         <tr>
             <th>
@@ -88,7 +107,12 @@
             <tr>
                 <td width="25%">Tanggal Lahir</td>
                 <td width="2%">:</td>
-                <td><?php echo $i->tgl_lahir; ?></td>
+                <td><?php if ($i->tgl_lahir > 0) { ?>
+                        <?php echo $i->tgl_lahir ?>
+                    <?php
+                    } else {
+                        echo "";
+                    } ?></td>
             </tr>
             <tr>
                 <td width="25%">Alamat</td>
@@ -135,13 +159,12 @@
                 <td valign="top" width="2%">:</td>
                 <td style="text-transform: capitalize;">Rp <?php echo number_format($i->nilai, 0, ',', '.'); ?></td>
             </tr>
-            <tr style="padding-bottom:10px;">
-                <td valign="top" width="25%"></td>
-                <td valign="top" width="2%"></td>
-                <td class="text-light" style=" text-transform: capitalize;">.</td>
-            </tr>
+
         <?php } ?>
     </table>
+    <div style="height:100px; color:white;">
+        <hr style="margin-top:30px;  border-top: 1px dashed red;">
+    </div>
 
     <script type="text/javascript">
         window.print();

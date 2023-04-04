@@ -106,12 +106,12 @@
                                                 <tr>
                                                     <td>Berat Badan</td>
                                                     <td>:</td>
-                                                    <td><?= $i->tinggi_badan ?></td>
+                                                    <td><?= $i->berat_badan ?></td>
                                                 </tr><br>
                                                 <tr>
                                                     <td>Suhu Badan</td>
                                                     <td>:</td>
-                                                    <td><?= $i->tinggi_badan ?></td>
+                                                    <td><?= $i->suhu_badan ?></td>
                                                 </tr>
 
                                             </p>

@@ -135,12 +135,13 @@
                 <td valign="top" width="2%">:</td>
                 <td style="text-transform: capitalize;">Rp <?php echo number_format($i->nilai, 0, ',', '.'); ?></td>
             </tr>
-            <tr style="padding-bottom:10px;">
-                <td valign="top" width="25%"></td>
-                <td valign="top" width="2%"></td>
-                <td class="text-light" style=" text-transform: capitalize;">.</td>
-            </tr>
+
         <?php } ?>
+    </table>
+    <table style="width: 100%;">
+        <thead>
+            <td></td>
+        </thead>
     </table>
 
     <script type="text/javascript">
