@@ -177,15 +177,20 @@ class Admin extends CI_Controller
 	function invoice_tambah_aksi()
 	{
 		$kode = $this->input->post('kode');
-		$jenis = $this->input->post('jenis');
-		// buat kode invoice
-		$a =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
-		$hari = date('Y');
-		$rs = ('RSK');
-		$garing = ('/');
-		$urut = (int)substr($a, 13, 4);
-		$urut++;
-		$kd = $kode . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
+        	$jenis = $this->input->post('jenis');
+	        // buat kode invoice
+	        $newInvoice =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
+	        $tahun = date('Y');
+	        $rs = ('RSK');
+	        $garing = ('/');
+	        $urut = (int)substr($newInvoice, 13, 4);
+	        $urut++;
+	
+	        if ($this->isYearChanged($tahun)) {
+	            $newInvoice = 1;
+	        }
+	
+	        $kd = $kode . $garing . $rs . $garing . $tahun  . $garing . sprintf("%04s", $urut);
 		// akhir buat kode
 		$nama = $this->input->post('nama');
 		$rm = $this->input->post('rm');
