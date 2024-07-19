@@ -55,6 +55,21 @@ class User extends CI_Controller
 		$this->load->view('user/v_input', $data);
 		$this->load->view('user/v_footer');
 	}
+	
+	function invoice_add($id)
+	{
+		$where = array('id' => $id);
+		$kode = $this->input->post('kode');
+		$data = [
+			'in' => $this->m_invoice->get_inisial($kode),
+			'pelayanan' => $this->m_invoice->get_data('jns_pelayanan')->result(),
+			'invoice' => $this->m_invoice->edit_data($where, 'invoice')->result()
+		];
+		$this->load->view('user/v_header');
+		$this->load->view('user/v_sidebar');
+		$this->load->view('user/v_input1', $data);
+		$this->load->view('user/v_footer');
+	}
 
 	function invoice_tambah_aksi()
 	{
@@ -94,13 +109,28 @@ class User extends CI_Controller
 			'suhu_badan' => $sh,
 			'alamat' => $alamat,
 			'keterangan' => $keterangan,
-			'jns_pelayanan' => $pelayanan
+			'jns_pelayanan' => $pelayanan,
+			'status' => 'belum lunas'
 		);
 		$activity_data = json_encode($data); // mengubah data ke format JSON
 		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->insert_data($data, 'invoice');
 
 		$this->session->set_flashdata('flash', 'Membuat Invoice');
+		redirect('user/invoice');
+	}
+	
+	function invoice_lunas($id)
+	{
+		$where = array(
+			'id' => $id
+		);
+
+		// mengubah status belum lunas menjadi lunas
+		$this->m_invoice->update_data($where, array('status' => 'lunas'), 'invoice');
+
+
+		// mengalihkan halaman ke halaman invoice
 		redirect('user/invoice');
 	}
 
@@ -170,7 +200,7 @@ class User extends CI_Controller
 		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($where, 'invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
-		redirect('admin/invoice_list');
+		redirect('user/invoice_list');
 	}
 
 	function invoice_list()
@@ -192,16 +222,21 @@ class User extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
-		$this->load->view('user/v_cetak1', $data,);
+		$this->load->view('user/v_cetak1', $data);
 	}
-
+	
 	function detail_invoice($id)
 	{
 		$where = array('id' => $id);
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
 		$this->load->view('user/v_header');
 		$this->load->view('user/v_sidebar');
-		$this->load->view('user/v_detail', $data,);
+		$this->load->view('user/v_detail', $data);
 		$this->load->view('user/v_footer');
+	}
+		public function excel()
+	{
+		$data['invoice'] = $this->m_invoice->get_inv();
+		$this->load->view('user/excel_bulanan', $data);
 	}
 }

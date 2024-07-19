@@ -16,9 +16,9 @@
 <!-- AdminLTE App -->
 <script src="<?= base_url() ?>dist/js/adminlte.min.js"></script>
 <script src="<?= base_url() ?>dist/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>dist/plugins/jquery/jquery.min.js"></script>
+<script src="<?= base_url() ?>dist/plugins/datatables/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>dist/plugins/datatables/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>dist/js/jquery.masknumber.js"></script>
 <script src="<?= base_url() ?>dist/plugins/select2/js/select2.full.min.js"></script>
 <script>

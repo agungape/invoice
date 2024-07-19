@@ -37,6 +37,7 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <img class="profile-user-img img-fluid img-circle" src="<?= base_url() ?>img/invoice.png" alt="User profile picture">
+
                                         <h3 class="profile-username text-center" style="text-transform: capitalize;"><?= $i->nama ?></h3>
                                         <p class="text-muted text-center"><?= $i->tgl_lahir ?></p>
                                         <ul class="list-group list-group-unbordered mb-3">
@@ -47,6 +48,10 @@
                                             <li class="list-group-item">
                                                 <b>Alamat</b><br>
                                                 <span style="text-transform: capitalize;"><?= $i->alamat ?></span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Di Buat</b><br>
+                                                <span style="text-transform: capitalize;"><?= $i->created_at ?></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -119,7 +124,9 @@
                                 </div>
                                 <div class="col-12 col-sm-12 text-center pt-5">
                                     <a href="<?= base_url() . 'user/invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
-                                    <a target="_blank" href="<?php echo base_url() . 'user/cetak_invoice/' . $i->id; ?>" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i> Cetak Invoice</a>
+                                    <?php if ($i->status == "lunas") { ?>
+                                        <a target="_blank" href="<?php echo base_url() . 'user/cetak_invoice/' . $i->id; ?>" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i> Cetak Invoice</a>
+                                    <?php } ?>
                                 </div>
 
                             </div>

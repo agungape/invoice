@@ -56,38 +56,67 @@
                         </div>
                         <div class="row pt-4">
                             <div class="col-12 table-responsive">
-                                <table class="table table-striped table-hover" id="table-datatable">
+                                 <table class="table table-striped table-hover" id="table-datatable">
                                     <thead>
-                                        <tr class="align-items-center">
-                                            <th>#</th>
-                                            <th>Di Buat</th>
+                                        <tr>
+                                            <th>Aksi</th>
+                                            <th>Tambah Invoice</th>
+                                            <th></th>
                                             <th>Jenis Invoice</th>
                                             <th>Nomor Invoice</th>
                                             <th>Nama Pasien</th>
                                             <th>No. RM</th>
-                                            <th>Aksi</th>
+                                            <th>Alamat</th>
+                                            <th>Jenis Pelayanan</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        $no = 1;
-                                        foreach ($invoice as $u) : ?>
-                                            <tr>
-                                                <td><?php echo $no++ ?></td>
-                                                <td><?php echo $u['created_at']; ?></td>
+                                        <?php foreach ($invoice as $u) : ?>
+                                             <tr>
+                                                <?= form_open('user/invoice_add/' . $u['id']); ?>
+                                                <td>
+                                                     <a href="<?php echo base_url() . 'user/invoice_edit/' . $u['id']; ?>" title="edit" class="btn btn-sm "><i class="fas fa-edit text-warning"></i></a>
+                                                </td>
+                                                <td>
+                                                    <select name="kode" id="kode" class="form-control" style="width: 100%;" required>
+                                                        <?php
+                                                        foreach ($jenis as $data) : ?>
+                                                            <option value="<?= $data['kode_invoice']; ?>">(<?= $data['kode_invoice']; ?>) <?= $data['jenis_invoice']; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </td>
+                                                <td> <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modaltambah"><i class="fas fa-sync-alt"></i></button></td>
                                                 <td><?php echo $u['jenis_invoice']; ?></td>
-                                                <td><?php echo $u['nomor_invoice']; ?></td>
+                                                 <td><a href="<?php echo base_url() . 'user/detail_invoice/' . $u['id']; ?>"><strong><?php echo $u['nomor_invoice']; ?></strong></a></td>
                                                 <td style="text-transform: capitalize;"><?php echo $u['nama']; ?></td>
                                                 <td><?php echo $u['no_rm']; ?></td>
-
-                                                <td>
-                                                    <a href="<?php echo base_url() . 'user/detail_invoice/' . $u['id']; ?>" title="Detail" class="btn btn-sm btn-outline-info"><i class="fa fa-eye"></i></a>
-                                                    <a href="<?php echo base_url() . 'user/invoice_edit/' . $u['id']; ?>" title="edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
-                                                    <a target="_blank" href="<?php echo base_url() . 'user/cetak_invoice/' . $u['id']; ?>" title="Cetak" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i></a>
+                                                <td style="text-transform: capitalize;"><?php echo $u['alamat']; ?></td>
+                                                <td style="text-transform: capitalize;"><?php echo $u['jns_pelayanan']; ?></td>
+                                                <td width="100">Rp. <?php echo number_format($u['nilai'], 0, ',', '.'); ?></td>
+                                                <td class="text-center">
+                                                    <?php if ($u['status'] == "lunas") {
+                                                        echo "<div class='badge badge-success badge-outlined'>Lunas</div>"; ?>
+                                                        <a target="_blank" href="<?php echo base_url() . 'user/cetak_invoice/' . $u['id']; ?>" title="Cetak" class="btn btn-md btn-outline-success"><i class="fa fa-address-card"></i></a>
+                                                    <?php
+                                                    } else if ($u['status'] == "belum lunas") {
+                                                        echo "<div class='badge badge-primary'>Menunggu Pembayaran</div>"; ?>
+                                                        <a href="<?php echo base_url() . 'user/invoice_lunas/' . $u['id']; ?>" title="Lunas" class="btn btn-sm btn-outline-success"><i class="fa fa-dollar-sign"></i> Lunas</a>
+                                                        <a href="<?php echo base_url() . 'user/invoice_hapus/' . $u['id']; ?>" title="Batalkan" class="btn btn-sm btn-outline-danger tombol-hapus"><i class="fa fa-delete-left"></i> Batal</a>
+                                                    <?php } else {
+                                                        echo "-";
+                                                    } ?>
                                                 </td>
+                                                <?= form_close(); ?>
                                             </tr>
                                         <?php endforeach; ?>
                                 </table>
+                            </div>
+                        </div>
+                         <div class="row no-print">
+                            <div class="col-12">
+                                <a class='btn btn-success' href="<?php echo base_url() . 'user/excel'; ?>"><i class='fa fa-newspaper'></i> Export Excel</a>
                             </div>
                         </div>
                     </div>

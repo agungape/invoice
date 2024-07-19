@@ -173,24 +173,34 @@ class Admin extends CI_Controller
 		$this->load->view('admin/v_input', $data);
 		$this->load->view('admin/v_footer');
 	}
+	
+	function invoice_add($id)
+	{
+		$where = array('id' => $id);
+		$kode = $this->input->post('kode');
+		$data = [
+			'in' => $this->m_invoice->get_inisial($kode),
+			'pelayanan' => $this->m_invoice->get_data('jns_pelayanan')->result(),
+			'invoice' => $this->m_invoice->edit_data($where, 'invoice')->result()
+		];
+		$this->load->view('admin/v_header');
+		$this->load->view('admin/v_sidebar');
+		$this->load->view('admin/v_input1', $data);
+		$this->load->view('admin/v_footer');
+	}
 
 	function invoice_tambah_aksi()
 	{
 		$kode = $this->input->post('kode');
-        	$jenis = $this->input->post('jenis');
-	        // buat kode invoice
-	        $newInvoice =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
-	        $tahun = date('Y');
-	        $rs = ('RSK');
-	        $garing = ('/');
-	        $urut = (int)substr($newInvoice, 13, 4);
-	        $urut++;
-	
-	        if ($this->isYearChanged($tahun)) {
-	            $newInvoice = 1;
-	        }
-	
-	        $kd = $kode . $garing . $rs . $garing . $tahun  . $garing . sprintf("%04s", $urut);
+		$jenis = $this->input->post('jenis');
+		// buat kode invoice
+		$a =  $this->m_invoice->auto_code($kode)['nomor_invoice'];
+		$hari = date('Y');
+		$rs = ('RSK');
+		$garing = ('/');
+		$urut = (int)substr($a, 13, 4);
+		$urut++;
+		$kd = $kode . $garing . $rs . $garing . $hari  . $garing . sprintf("%04s", $urut);
 		// akhir buat kode
 		$nama = $this->input->post('nama');
 		$rm = $this->input->post('rm');
@@ -217,13 +227,28 @@ class Admin extends CI_Controller
 			'suhu_badan' => $sh,
 			'alamat' => $alamat,
 			'keterangan' => $keterangan,
-			'jns_pelayanan' => $pelayanan
+			'jns_pelayanan' => $pelayanan,
+			'status' => 'belum lunas'
 		);
 		$activity_data = json_encode($data); // mengubah data ke format JSON
 		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menambahkan', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->insert_data($data, 'invoice');
 
 		$this->session->set_flashdata('flash', 'Membuat Invoice');
+		redirect('admin/invoice');
+	}
+	
+	function invoice_lunas($id)
+	{
+		$where = array(
+			'id' => $id
+		);
+
+		// mengubah status belum lunas menjadi lunas
+		$this->m_invoice->update_data($where, array('status' => 'lunas'), 'invoice');
+
+
+		// mengalihkan halaman ke halaman invoice
 		redirect('admin/invoice');
 	}
 
@@ -293,7 +318,7 @@ class Admin extends CI_Controller
 		$this->m_invoice->buat_log($this->session->userdata('username'), $this->session->userdata('no_user'), 'menghapus', 'invoice', $activity_data); // log aksi "created"
 		$this->m_invoice->delete_data($where, 'invoice');
 		$this->session->set_flashdata('flash', 'Dihapus');
-		redirect('admin/invoice_list');
+		redirect('admin/invoice');
 	}
 
 	function invoice_list()
@@ -363,7 +388,7 @@ class Admin extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
-		$this->load->view('admin/v_cetak1', $data,);
+		$this->load->view('admin/v_cetak1', $data);
 	}
 
 	function detail_invoice($id)
@@ -372,7 +397,7 @@ class Admin extends CI_Controller
 		$data['invoice'] = $this->m_invoice->edit_data($where, 'invoice')->result();
 		$this->load->view('admin/v_header');
 		$this->load->view('admin/v_sidebar');
-		$this->load->view('admin/v_detail', $data,);
+		$this->load->view('admin/v_detail', $data);
 		$this->load->view('admin/v_footer');
 	}
 
@@ -391,7 +416,7 @@ class Admin extends CI_Controller
 		$data['pelayanan'] = $this->m_invoice->get_data('jns_pelayanan')->result();
 		$this->load->view('admin/v_header');
 		$this->load->view('admin/v_sidebar');
-		$this->load->view('admin/v_pelayanan', $data,);
+		$this->load->view('admin/v_pelayanan', $data);
 		$this->load->view('admin/v_footer');
 	}
 	function invoice_tambah_pelayanan()
@@ -435,14 +460,28 @@ class Admin extends CI_Controller
 		$data['user1'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user1' and aktifitas = 'menambahkan' ")->result_array();
 		$data['user2'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user2' and aktifitas = 'menambahkan' ")->result_array();
 		$data['user3'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user3' and aktifitas = 'menambahkan' ")->result_array();
+		$data['user4'] = $this->db->query("SELECT COUNT(*) AS jumlah_invoice FROM log WHERE no_user = 'user4' and aktifitas = 'menambahkan' ")->result_array();
 		$data['nilai1'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user1' and aktifitas = 'menambahkan'  GROUP BY MONTH(waktu_log)")->result_array();
 		$data['nilai2'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user2' and aktifitas = 'menambahkan' GROUP BY MONTH(waktu_log)")->result_array();
 		$data['nilai3'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user3' and aktifitas = 'menambahkan' GROUP BY MONTH(waktu_log)")->result_array();
+		$data['nilai4'] = $this->db->query("SELECT MONTHNAME(waktu_log) AS bulan, COUNT(*) AS jumlah_user FROM log WHERE no_user = 'user4' and aktifitas = 'menambahkan' GROUP BY MONTH(waktu_log)")->result_array();
 		$data['log'] = $this->m_invoice->get_logs();
 		$data['user'] = $this->m_invoice->get_user();
 		$this->load->view('admin/v_header');
 		$this->load->view('admin/v_sidebar');
 		$this->load->view('admin/v_penilaian', $data);
 		$this->load->view('admin/v_footer');
+	}
+	
+	public function excel()
+	{
+		$data['invoice'] = $this->m_invoice->get_inv();
+		$this->load->view('admin/excel_bulanan', $data);
+	}
+	
+		public function excel1()
+	{
+		$data['invoice'] = $this->m_invoice->get_in();
+		$this->load->view('admin/excel_bulanan', $data);
 	}
 }

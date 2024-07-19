@@ -49,6 +49,10 @@
                                                 <b>Alamat</b><br>
                                                 <span style="text-transform: capitalize;"><?= $i->alamat ?></span>
                                             </li>
+                                            <li class="list-group-item">
+                                                <b>Di Buat</b><br>
+                                                <span style="text-transform: capitalize;"><?= $i->created_at ?></span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -120,7 +124,9 @@
                                 </div>
                                 <div class="col-12 col-sm-12 text-center pt-5">
                                     <a href="<?= base_url() . 'admin/invoice' ?>" class='btn btn-sm btn-outline-warning'><i class="fa fa-backward"></i> Kembali</a>
-                                    <a target="_blank" href="<?php echo base_url() . 'admin/cetak_invoice/' . $i->id; ?>" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i> Cetak Invoice</a>
+                                    <?php if ($i->status == "lunas") { ?>
+                                        <a target="_blank" href="<?php echo base_url() . 'admin/cetak_invoice/' . $i->id; ?>" class="btn btn-sm btn-outline-success"><i class="fa fa-address-card"></i> Cetak Invoice</a>
+                                    <?php } ?>
                                 </div>
 
                             </div>

@@ -20,7 +20,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-teal">
                         <div class="inner">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-maroon">
                         <div class="inner">
@@ -79,8 +79,28 @@
                     </div>
                 </div>
 
+                <div class="col-lg-3 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-orange">
+                        <div class="inner">
+                            <h3><?php foreach ($user4 as $u) { ?>
+                                    <?php echo $u['jumlah_invoice']; ?>
+                                <?php } ?></h3>
+
+                            <p> <?php foreach ($user as $u) {
+                                    if ($u['no_user'] == "user4") {
+                                        echo $u['nama'];
+                                    }
+                                } ?></p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-android-contact"></i>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ./col -->
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Diagram Invoice </h3>
@@ -97,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card card-teal">
                         <div class="card-header">
                             <h3 class="card-title">Diagram Invoice</h3>
@@ -116,7 +136,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card card-maroon">
                         <div class="card-header">
                             <h3 class="card-title">Diagram Invoice</h3>
@@ -130,6 +150,25 @@
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="user3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-orange">
+                        <div class="card-header">
+                            <h3 class="card-title">Diagram Invoice</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="user4" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                             </div>
                         </div>
 
@@ -378,6 +417,37 @@
                     <?php } ?>
                 ],
                 backgroundColor: 'rgba(243, 0, 82, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = document.getElementById('user4').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                <?php foreach ($nilai4 as $u) { ?> '<?php echo $u['bulan']; ?>',
+                <?php } ?>
+            ],
+            datasets: [{
+                label: 'Jumlah Invoice / Bulan',
+                data: [
+                    <?php foreach ($nilai4 as $u) { ?>
+                        <?php echo $u['jumlah_user']; ?>,
+                    <?php } ?>
+                ],
+                backgroundColor: 'rgba(231, 85, 6, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }]

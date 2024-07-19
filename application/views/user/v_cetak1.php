@@ -40,11 +40,31 @@
             line-height: 1.1;
             font-size: 7px;
         }
+        
+        .watermark {
+
+            position: fixed;
+            /*bottom: 5px;*/
+            /*right: 5px;*/
+            top: 0.8%;
+            left: 10%;
+            transform: translate(-10%, -10%);
+            font-size: 45px;
+            font-weight: bold;
+            color: #cccccc;
+            opacity: 0.5;
+            z-index: -1;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
     </style>
 </head>
 
 <body>
-
+ <div class="watermark">LUNAS</div>
     <table id="table" style="width: 100%;">
         <tr>
             <th>
@@ -74,11 +94,29 @@
     </table>
 
     <table id="tabel">
-        <?php foreach ($invoice as $i) { ?>
+        <?php foreach ($invoice as $i) { 
+             // Ambil nilai waktu dari setiap data
+            $waktu_db = $i->created_at;
+
+            // Konversi nilai waktu ke dalam format waktu 
+            $waktu_view = date("d/m/Y", strtotime($waktu_db)); ?>
+
+            <tr>
+                <td width="33%">Tanggal</td>
+                <td width="2%">:</td>
+                <td><?php echo $waktu_view; ?></td>
+            </tr>
             <tr>
                 <td width="33%">No. Rekam Medis</td>
                 <td width="2%">:</td>
-                <td><?php echo $i->no_rm; ?></td>
+                <td>
+                    <?php if ($i->no_rm > 0) { ?>
+                        <?php echo $i->no_rm ?>
+                    <?php
+                    } else {
+                        echo "-";
+                    } ?>
+                </td>
             </tr>
             <tr>
                 <td width="25%">Nama Pasien</td>
@@ -88,7 +126,14 @@
             <tr>
                 <td width="25%">Tanggal Lahir</td>
                 <td width="2%">:</td>
-                <td><?php echo $i->tgl_lahir; ?></td>
+                <td>
+                    <?php if ($i->tgl_lahir > 0) { ?>
+                        <?php echo $i->tgl_lahir ?>
+                    <?php
+                    } else {
+                        echo "-";
+                    } ?>
+                </td>
             </tr>
             <tr>
                 <td width="25%">Alamat</td>
@@ -126,23 +171,26 @@
                         Lainnya : <?php echo $i->keterangan; ?>
                     <?php
                     } else {
-                        echo "";
+                        echo "-";
                     } ?>
                 </td>
             </tr>
             <tr>
                 <td valign="top" width="25%">Nilai Tagihan</td>
                 <td valign="top" width="2%">:</td>
-                <td style="text-transform: capitalize;">Rp <?php echo number_format($i->nilai, 0, ',', '.'); ?></td>
+                <td style="text-transform: capitalize;"><strong>Rp <?php echo number_format($i->nilai, 0, ',', '.'); ?></strong></td>
             </tr>
 
         <?php } ?>
     </table>
-    <table style="width: 100%;">
-        <thead>
-            <td></td>
-        </thead>
-    </table>
+    
+    <div style="font-size: 7px;" align="center">
+        <p>HARAP SIMPAN STRUK <strong>INVOICE</strong><br>SEBAGAI BUKTI PEMBAYARAN ANDA</p>
+        <p>TERIMA KASIH</p>
+    </div>
+    <div style="height:100px; color:white;">
+        <hr style="border-top: 1px dashed red;">
+    </div>
 
     <script type="text/javascript">
         window.print();

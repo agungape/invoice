@@ -20,11 +20,11 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3> <?php echo $this->m_invoice->get_data('invoice')->num_rows(); ?></h3>
+                            <h4> <?php echo $this->m_invoice->get_data('invoice')->num_rows(); ?></h4>
 
                             <p>Jumlah Invoice</p>
                         </div>
@@ -34,11 +34,11 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-teal">
                         <div class="inner">
-                            <h3> <?php echo $this->m_invoice->get_data('jns_pelayanan')->num_rows(); ?></h3>
+                            <h4> <?php echo $this->m_invoice->get_data('jns_pelayanan')->num_rows(); ?></h4>
 
                             <p>Jumlah Jenis Pelayanan</p>
                         </div>
@@ -48,14 +48,28 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-3">
+                <div class="col-lg-3 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-purple">
+                        <div class="inner">
+                            <h4> <?php echo $this->m_invoice->get_data('jns_invoice')->num_rows(); ?></h4>
+
+                            <p>Jumlah Jenis Invoice</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-ios-paper"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-4">
                     <!-- small box -->
                     <div class="small-box bg-maroon">
                         <div class="inner">
-                            <h3> <?php foreach ($jml_nilai as $u) { ?>
+                            <h4> <?php foreach ($jml_nilai as $u) { ?>
                                     Rp <?php echo number_format($u['jumlah_nilai'], 0, ',', '.'); ?>
-                                <?php } ?></h3>
-
+                                <?php } ?>
+                            </h4>
                             <p>Jumlah Nilai</p>
                         </div>
                         <div class="icon">
@@ -65,92 +79,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-lg-2 col-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-id-card"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">KKT</span>
-                                    <span class="info-box-number">
-                                        <?php echo $jns_kkt ?>
-                                    </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-lg-2 col-6">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-hospital-user"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">LAB</span>
-                                    <span class="info-box-number"><?php echo $jns_lab ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-
-                        <!-- fix for small devices only -->
-                        <div class="clearfix hidden-md-up"></div>
-
-                        <div class="col-lg-2 col-6">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-radio"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">RDL</span>
-                                    <span class="info-box-number"><?php echo $jns_rdl ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6 col-md-2">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-user-nurse"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">RJL</span>
-                                    <span class="info-box-number"><?php echo $jns_rjl ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <div class="col-lg-2 col-6">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-maroon elevation-1"><i class="fas fa-bed"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">RIN</span>
-                                    <span class="info-box-number"><?php echo $jns_rin ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <div class="col-lg-2 col-6">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-maroon elevation-1"><i class="fas fa-glass-water-droplet"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">UTD</span>
-                                    <span class="info-box-number"><?php echo $jns_utd ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </div>
-
                 <!-- ./col -->
                 <div class="col-md-6">
                     <div class="card card-info">

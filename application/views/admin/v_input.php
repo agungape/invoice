@@ -128,9 +128,10 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-8">
-                                <div class="form-group">
+                               <div class="form-group">
+                                    <span class="text-danger">*</span>
                                     <label for="layanan">Jenis Pelayanan</label>
-                                    <select name="layanan[]" class="form-control select2bs4" id="layanan" multiple="multiple" data-placeholder="Pilih Pelayanan" style="width: 100%;">
+                                    <select name="layanan[]" class="form-control select2bs4" id="layanan" multiple="multiple" data-placeholder="Pilih Pelayanan" style="width: 100%;" required="required">
                                         <?php foreach ($pelayanan as $data) { ?>
                                             <option value="<?= $data->nama; ?>"><?= $data->nama; ?></option>
                                         <?php } ?>
